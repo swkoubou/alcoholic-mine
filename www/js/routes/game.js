@@ -5,15 +5,15 @@
             gameViewModel.initGamePage();
 
             game.gameStart();
+            turnLoop(game, gameViewModel).catch(() => {
+                return gameViewModel.showGameResult();
+            });
         };
     };
 
     function turnLoop(game, gameViewModel) {
-        startTurn(game, gameViewModel).then(() => {
-            turnLoop(game, gameViewModel);
-        }, () => {
-            // move to result
-            gameViewModel.showGameResult();
+        return startTurn(game, gameViewModel).then(() => {
+            return turnLoop(game, gameViewModel);
         });
     }
 
