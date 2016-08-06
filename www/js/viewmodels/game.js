@@ -33,8 +33,7 @@
                 table.append(tr);
             });
 
-            $$('.panel-block').append(table);
-            $$('table').addClass('panels');
+            return table;
         }
 
         updatePage() {
@@ -53,7 +52,7 @@
             }
 
             const panelBlock = this.createPanelBlock(this.game.panels);
-            // this.doms.panelListBlock.children().remove();
+            this.doms.panelListBlock.children().remove();
             this.doms.panelListBlock.append(panelBlock);
         }
         
