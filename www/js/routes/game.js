@@ -1,18 +1,23 @@
 (function (routes, models, viewmodels, $$) {
-    routes.Game = (game, f7App) => {
+    routes.Game = (f7App, mainView) => {
         return (page) => {
-            const gameViewModel = new viewmodels.Game(game, f7App, page);
+            const game = page.query.game;
+            const gameViewModel = new viewmodels.Game(f7App, mainView, page, game);
             gameViewModel.initGamePage();
             game.gameStart();
 
             startMemorizePhase(game, gameViewModel).then(() => {
                 return turnLoop(game, gameViewModel);
-            }).catch(e => {
+            }).catch(() => {
                 if ([models.GameStatus.LOSE_GAME_MASTER, models.GameStatus.LOSE_PLAYER].includes(game.status)) {
                     return gameViewModel.showGameResult();
                 } else {
-                    console.error(e && (e.stack || e));
+                    return Promise.reject();
                 }
+            }).then(() => {
+                return mainView.router.load({url: 'result.html', query: {game}, context: {game}});
+            }).catch(e => {
+                console.error(e && (e.stack || e));
             });
         };
     };

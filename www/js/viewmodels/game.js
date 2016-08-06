@@ -1,9 +1,10 @@
 (function (models, viewmodels, $$) {
     class Game {
-        constructor(game, f7App, page) {
-            this.game = game;
+        constructor(f7App, mainView, page, game) {
             this.f7App = f7App;
+            this.mainView = mainView;
             this.page = page;
+            this.game = game;
 
             const container = $$(page.container);
             this.doms = {

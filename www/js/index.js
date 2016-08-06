@@ -12,17 +12,24 @@
 
     function appInit() {
         const f7App = new Framework7({
-            material: true
+            material: true,
+            template7Pages: true,
+            precompileTemplates: true
         });
-        const game = alcoholicmine.data.currentGame = makeStubGame();
-        // testGame(game);
+        registerTemplateHelper();
+        const mainView = f7App.addView('.view-main', {});
 
-        mainView = f7App.addView('.view-main', {});
+        f7App.onPageInit('game', routes.Game(f7App, mainView));
+        f7App.onPageInit('result', routes.Result(f7App, mainView));
 
-        alcoholicmine.data.f7App = f7App;
-        alcoholicmine.data.mainView = mainView;
+        const game = makeStubGame();
+        setTimeout(() => mainView.router.load({url: 'game.html', query: {game}, context: {game}}), 1000);
+    }
 
-        f7App.onPageInit('game', routes.Game(game, f7App));
+    function registerTemplateHelper() {
+        Template7.registerHelper('ifeq', function (a, b, opts) {
+            a === b ? opts.fn(this, opts.data) : opts.inverse(this, opts.data);
+        })
     }
 
     app.initialize();
