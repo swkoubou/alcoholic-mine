@@ -59,6 +59,34 @@
         showStartTurnModal(turnIndex, currentPlayerName) {
             this.f7App.alert('プレイヤー: '+currentPlayerName, 'ターン '+turnIndex);
         }
+
+        showSelectColorPopup() {
+            return new Promise((resolve) => {
+                const popup = Game.templatePopupTemplate(this.game);
+                this.f7App.popup(popup);
+
+                $$('.popup').find('.select-color-item').on('click', ele => {
+                    const colorName = $$(ele.target).attr('data-color-name');
+                    this.f7App.closeModal();
+                    resolve(colorName);
+                });
+            });
+        }
+
+        static get templatePopupTemplate() {
+            return Template7.compile(`
+<div class="popup select-color-popup">
+  <div class="content-block">
+    <h2>ゲームマスター({{gameMaster.name}})は色を選択してください。</h2>
+    <p class="select-color-list buttons-row">
+      {{#each colors}}
+      <span class="select-color-item button button-raised button-fill color-{{this.name}}" data-color-name="{{this.name}}">{{this.name}}</span>
+      {{/each}}
+    </p>
+  </div>
+</div>
+`);
+        }
     }
 
     viewmodels.Game = Game;
