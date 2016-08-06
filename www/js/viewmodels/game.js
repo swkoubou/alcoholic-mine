@@ -20,8 +20,21 @@
             this.updatePage();
         }
 
-        createPanelBlock() {
-            // game.panelsからパネルリストのhtmlを生成する
+        createPanelBlock(panels) {
+            const table = $$('<table>');
+
+            panels.forEach(xs => {
+                const tr = $$('<tr>');
+                xs.forEach(xss =>{
+                    const td = $$('<td>');
+                    td.css('background-color',xss.color.rgb);
+                    tr.append(td);
+                });
+                table.append(tr);
+            });
+
+            $$('.panel-block').append(table);
+            $$('table').addClass('panels');
         }
 
         updatePage() {
@@ -39,8 +52,9 @@
                 this.doms.currentColor.css('background-color', game.currentColor.rgb);
             }
 
+            const panelBlock = this.createPanelBlock(this.game.panels);
             // this.doms.panelListBlock.children().remove();
-            // this.doms.panelListBlock.append(this.createPanelBlock());
+            this.doms.panelListBlock.append(panelBlock);
         }
         
         showStartTurnModal(turnIndex, currentPlayerName) {
