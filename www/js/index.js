@@ -23,10 +23,6 @@
         alcoholicmine.data.mainView = mainView;
 
         const gameViewModel = new viewmodels.Game(game, f7App, mainView);
-        // gameViewModel.showStartTurnModal(4, 'player name');
-        //testGame(game);
-        // gameViewModel.showResultSuccessModal(4, 'Player1', game.colors[0]);
-        // gameViewModel.showResultFailModal(4, 'Player1', game.colors[0]);
 
         f7App.onPageInit('game', routes.Game(game, f7App));
     }
