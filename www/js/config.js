@@ -3,6 +3,7 @@
         models: {},
         modules: {},
         viewmodels: {},
+        routes: {},
         data: {}
     }
 }());

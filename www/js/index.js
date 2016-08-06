@@ -1,21 +1,7 @@
-(function (models, viewmodels) {
+(function (models, viewmodels, routes) {
     const app = {
-        initialize: function() {
-            this.bindEvents();
-        },
-
-        bindEvents: function() {
-            document.addEventListener('deviceready', this.onDeviceReady, false);
-        },
-
-
-        onDeviceReady: function() {
-            app.receivedEvent();
-        },
-
-        receivedEvent: function() {
-            appInit();
-        }
+        initialize: () => { document.addEventListener('deviceready', this.onDeviceReady, false); },
+        onDeviceReady: () => { appInit(); }
     };
 
     if (typeof cordova === "undefined") {
@@ -28,27 +14,66 @@
         const f7App = new Framework7({
             material: true
         });
-        const $$ = Dom7;
+        const game = alcoholicmine.data.currentGame = makeStubGame();
+        // testGame(game);
 
         mainView = f7App.addView('.view-main', {});
 
         alcoholicmine.data.f7App = f7App;
         alcoholicmine.data.mainView = mainView;
-        const game = alcoholicmine.data.currentGame = makeStubGame();
-        console.log(alcoholicmine.data.currentGame);
 
-        const GameViewModel = new viewmodels.Game(game, mainView);
-        GameViewModel.initGamePage();
+        f7App.onPageInit('game', routes.Game(game));
+    }
+
+    app.initialize();
+
+    //// tests ////
+
+    function testGame(game) {
+        // init
+        console.log(`game master is ${game.gameMaster.name}`);
+        console.log(`players is ${game.players.map(x => x.name)}`);
+        game.gameStart();
+
+        // first turn
+        console.log('### first turn ###');
+        console.log(`current player is ${game.currentPlayer.name}`);
+        console.log(`game status is ${game.status}`);
+
+        // game master will select color
+        const selectColorResult = game.selectColor(_.sample(game.colors));
+        console.log(`selected color is ${game.currentColor}`);
+        console.log(`result of selectColor is ${selectColorResult}`);
+        console.log(`game status is ${game.status}`);
+
+        // player will select panel
+        const selectPanel = _.sample(_.sample(game.panels));
+        console.log(`selected panel is ${selectPanel}`);
+        const selectPanelResult = game.selectPanel(selectPanel);
+        console.log(`result of selectPanel is ${selectPanelResult}`);
+        console.log(`game status is ${game.status}`);
+
+        // second turn or result
+        if (game.loser) {
+            console.log('### game end ###');
+            console.log(`loser is ${game.currentPlayer.name}`);
+            console.log(`game status is ${game.status}`);
+        } else {
+            console.log('### second turn ###');
+            console.log(`current player is ${game.currentPlayer.name}`);
+            console.log(`game status is ${game.status}`);
+        }
     }
 
     function makeStubGame() {
-        const game = new models.Game();
-        const row = 5;
-        const column = 5;
         const colors = ['#f44336', '#2196f3', '#4caf50'].map(x => new models.Color(x));
-        game.createPanels(colors, row, column);
+        const users = ['nakazawa', 'kikuchi', 'nishi'].map(x => new models.User(x));
+        const game = new models.Game();
+        users.forEach(user => game.addUser(user));
+        game.setGameMaster(_.sample(users));
+        game.createPanels(colors, 5, 5);
         return game;
     }
 
     app.initialize();
-}(alcoholicmine.models, alcoholicmine.viewmodels));
+}(alcoholicmine.models, alcoholicmine.viewmodels, alcoholicmine.routes));
