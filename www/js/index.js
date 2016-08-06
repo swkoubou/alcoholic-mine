@@ -29,7 +29,7 @@
 
     //// tests ////
 
-    function testGame() {
+    function testGame(game) {
         // init
         console.log(`game master is ${game.gameMaster.name}`);
         console.log(`players is ${game.players.map(x => x.name)}`);
