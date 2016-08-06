@@ -1,4 +1,4 @@
-(function (models) {
+(function (models, viewmodels) {
     const app = {
         initialize: function() {
             this.bindEvents();
@@ -34,8 +34,9 @@
 
         alcoholicmine.data.f7App = f7App;
         alcoholicmine.data.mainView = mainView;
-        alcoholicmine.data.currentGame = makeStubGame();
-        console.log(alcoholicmine.data.currentGame);
+        const game = alcoholicmine.data.currentGame = makeStubGame();
+        const gameViewModel = new viewmodels.Game(game, f7App, mainView);
+        gameViewModel.showStartTurnModal(4, 'player name');
     }
 
     function makeStubGame() {
@@ -48,4 +49,4 @@
     }
 
     app.initialize();
-}(alcoholicmine.models));
+}(alcoholicmine.models, alcoholicmine.viewmodels));
