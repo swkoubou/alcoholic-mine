@@ -1,7 +1,9 @@
 (function (models, viewmodels, routes) {
     const app = {
         initialize: () => { document.addEventListener('deviceready', this.onDeviceReady, false); },
-        onDeviceReady: () => { appInit(); }
+        onDeviceReady: () => {
+            appInit();
+        }
     };
 
     if (typeof cordova === "undefined") {
@@ -19,11 +21,22 @@
         registerTemplateHelper();
         const mainView = f7App.addView('.view-main', {});
 
-        f7App.onPageInit('game', routes.Game(f7App, mainView));
-        f7App.onPageInit('result', routes.Result(f7App, mainView));
+        const bgmController = new models.BgmController();
+        bgmController
+            .addBgm('main', 'sound/bgm/main.wav')
+            .addBgm('result', 'sound/bgm/result.mp3')
+            .addBgm('memorize', 'sound/bgm/thinking.wav')
+            .allPreload()
+            .then(() => {
+                bgmController.start('main');
+            })
+            .catch(e => console.error(e && (e.stack || e)));
+
+        f7App.onPageInit('game', routes.Game(f7App, mainView, bgmController));
+        f7App.onPageInit('result', routes.Result(f7App, mainView, bgmController));
 
         const game = makeStubGame();
-        setTimeout(() => mainView.router.load({url: 'game.html', query: {game}, context: {game}}), 1000);
+        setTimeout(() => mainView.router.load({url: 'game.html', query: {game}, context: {game}}), 3000);
     }
 
     function registerTemplateHelper() {
