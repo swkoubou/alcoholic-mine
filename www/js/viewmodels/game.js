@@ -1,18 +1,31 @@
 (function (models, viewmodels, $$) {
     class Game {
         constructor(game, f7App, page) {
+            this.game = game;
             this.f7App = f7App;
         }
 
         initGamePage() {
-            // ゲーム画面の初期化
-            this.createPanelBlock();
+            this.createPanelBlock(this.game.panels);
         }
 
-        createPanelBlock() {
-            // game.panelsからパネルリストのhtmlを生成する
+        createPanelBlock(panels) {
+            const table = $$('<table>');
+
+            panels.forEach(xs => {
+                const tr = $$('<tr>');
+                xs.forEach(xss =>{
+                    const td = $$('<td>');
+                    td.css('background-color',xss.color.rgb);
+                    tr.append(td);
+                });
+                table.append(tr);
+            });
+
+            $$('.panel-block').append(table);
+            $$('table').addClass('panels');
         }
-        
+
         showStartTurnModal(turnIndex, currentPlayerName) {
             this.f7App.alert('プレイヤー: '+currentPlayerName, 'ターン '+turnIndex);
         }

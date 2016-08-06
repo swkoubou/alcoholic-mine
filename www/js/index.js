@@ -74,4 +74,6 @@
         game.createPanels(colors, 5, 5);
         return game;
     }
+
+    app.initialize();
 }(alcoholicmine.models, alcoholicmine.viewmodels, alcoholicmine.routes));
