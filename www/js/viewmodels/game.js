@@ -56,10 +56,16 @@
             this.doms.panelListBlock.append(panelBlock);
         }
         
-        showStartTurnModal(turnIndex, currentPlayerName) {
+        showStartTurnModal() {
             return new Promise(resolve => {
-                this.f7App.alert(`プレイヤー: ${currentPlayerName}`, `ターン ${turnIndex}`, resolve);
+                this.f7App.alert(`プレイヤー: ${this.game.currentPlayer.name}`, `ターン ${this.game.turnIndex + 1}`, resolve);
             });
+        }
+
+        showPlayerTurnModal() {
+            return new Promise(resolve => {
+                this.f7App.alert('パネルを選択してください', `プレイヤー(${this.game.currentPlayer.name})の番です。`, resolve)
+            })
         }
 
         showSelectColorPopup() {
@@ -79,7 +85,8 @@
             return Template7.compile(`
 <div class="popup select-color-popup">
   <div class="content-block">
-    <h2>ゲームマスター({{gameMaster.name}})は色を選択してください。</h2>
+    <h2>ゲームマスター({{gameMaster.name}})の番です。</h2>
+    <p>色を選択してください。</p>
     <p class="select-color-list buttons-row">
       {{#each colors}}
       <span class="select-color-item button button-raised button-fill color-{{this.name}}" data-color-name="{{this.name}}">{{this.name}}</span>
