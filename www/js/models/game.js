@@ -45,7 +45,7 @@
                 throw new Error('game was started');
             } else {
                 this.status = GameStatus.TURN_GAME_MASTER;
-                this.turn = 0;
+                this.turnIndex = 0;
                 this.panels.forEach(xs => xs.forEach(x => x.isActive = true));
             }
         }
@@ -76,6 +76,8 @@
             if (!panel.isActive) {
                 throw new Error('select panel is not active');
             }
+
+            panel.isActive = false;
 
             // 正解パネルか
             if (panel.color === this.currentColor) {
