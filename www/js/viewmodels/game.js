@@ -71,9 +71,9 @@
         showSelectColorPopup() {
             return new Promise((resolve) => {
                 const popup = Game.templatePopupTemplate(this.game);
-                this.f7App.popup(popup);
+                this.f7App.pickerModal(popup);
 
-                $$('.popup').find('.select-color-item').on('click', ele => {
+                $$('.select-color-popup').find('.select-color-item').on('click', ele => {
                     const colorName = $$(ele.target).attr('data-color-name');
                     this.f7App.closeModal();
                     resolve(colorName);
@@ -83,7 +83,7 @@
 
         static get templatePopupTemplate() {
             return Template7.compile(`
-<div class="popup select-color-popup">
+<div class="picker-modal select-color-popup">
   <div class="content-block">
     <h2>ゲームマスター({{gameMaster.name}})の番です。</h2>
     <p>色を選択してください。</p>
