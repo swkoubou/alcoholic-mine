@@ -1,14 +1,14 @@
 (function (models) {
     const Sound = models.Sound;
 
-    class BgmController {
+    class SoundController {
         constructor() {
             this.bgms = {};
             this.currentBgmName = null;
         }
 
-        addBgm(name, url) {
-            this.bgms[name]= new Sound(url, {loop: true});
+        addBgm(name, url, params) {
+            this.bgms[name]= new Sound(url, params);
             return this;
         }
 
@@ -35,5 +35,5 @@
         }
     }
 
-    models.BgmController = BgmController;
+    models.SoundController = SoundController;
 }(alcoholicmine.models));
