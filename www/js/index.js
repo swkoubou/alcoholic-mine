@@ -65,7 +65,7 @@
         const game = new models.Game();
         users.forEach(user => game.addUser(user));
         game.setGameMaster(_.sample(users));
-        game.createPanels(colors, 5, 5);
+        game.createPanels(colors, 3, 3);
         return game;
     }
 

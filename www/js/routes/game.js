@@ -31,7 +31,7 @@
                         game.fillPanelActive(true);
                         gameViewModel.updatePage();
                         resolve();
-                    }, 5000);
+                    }, 3000);
                 });
             }
 

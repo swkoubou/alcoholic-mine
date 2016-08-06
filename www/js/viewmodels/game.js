@@ -22,19 +22,21 @@
         }
 
         createPanelBlock(panels) {
-            const table = $$('<table class="panel-list"></table>');
+            const block = $$('<table class="panel-list"></table>');
 
             panels.forEach((line, y) => {
-                const tr = $$('<tr>');
+                const row = $$('<tr class="panel-row"></tr>');
                 line.forEach((panel, x) =>{
-                    const td = $$(`<td class="panel-item" data-x="${x}" data-y="${y}"></td>`);
-                    td.css('background-color', panel.isActive ? '#ffffff' : panel.color.rgb);
-                    tr.append(td);
+                    const td = $$('<td class="panel-item-wrap"></td>');
+                    const item = $$(`<span class="button button-raised button-fill panel-item" data-x="${x}" data-y="${y}"></span>`);
+                    item.addClass(`color-${panel.isActive ? 'white' : panel.color.name}`);
+                    td.append(item);
+                    row.append(td);
                 });
-                table.append(tr);
+                block.append(row);
             });
 
-            return table;
+            return block;
         }
 
         addClickEventPanels(callback) {
@@ -60,6 +62,9 @@
             if (game.currentColor) {
                 this.doms.currentColor.text(game.currentColor.name);
                 this.doms.currentColor.css('color', game.currentColor.rgb);
+            } else {
+                this.doms.currentColor.text('(none)');
+                this.doms.currentColor.css('color', 'inherits');
             }
 
             const panelBlock = this.createPanelBlock(this.game.panels);
