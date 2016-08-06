@@ -30,7 +30,7 @@
         });
         const $$ = Dom7;
 
-        mainView = myApp.addView('.view-main', {});
+        mainView = f7App.addView('.view-main', {});
 
         alcoholicmine.data.f7App = f7App;
         alcoholicmine.data.mainView = mainView;
