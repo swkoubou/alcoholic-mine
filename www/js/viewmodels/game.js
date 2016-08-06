@@ -78,24 +78,36 @@
             })
         }
 
-        showResultSuccessModal(selectedColor) {
+        showSelectPanelSuccessModal(selectPanel) {
             const game = this.game;
             return new Promise(resolve => {
                 this.f7App.alert(`
 プレイヤー: ${game.currentPlayer.name}<br>ターン ${game.turnIndex + 1}<br>
-選択:<span class="color-${selectedColor.name}">${selectedColor.name}</span><br>
+選択:<span class="color-${selectPanel.color.name}">${selectPanel.color.name}</span><br>
 正解:<span class="color-${game.currentColor.name}">${game.currentColor.name}</span>`, '成功', resolve);
                 $$('.modal-title').addClass('select-success-modal');
             });
         }
-        showResultFailModal(selectedColor) {
+
+        showSelectPanelFailModal(selectPanel) {
             const game = this.game;
             return new Promise(resolve => {
                 this.f7App.alert(`
 プレイヤー: ${game.currentPlayer.name}<br>
 ターン ${game.turnIndex + 1}<br>
-選択:<span class="color-${selectedColor.name}">${selectedColor.name}</span><br>
+選択:<span class="color-${selectPanel.color.name}">${selectPanel.color.name}</span><br>
 正解:<span class="color-${game.currentColor.name}">${game.currentColor.name}</span>`, '失敗', resolve);
+                $$('.modal-title').addClass('select-fail-modal');
+            });
+        }
+
+        showSelectColorFailModal(selectColor) {
+            const game = this.game;
+            return new Promise(resolve => {
+                this.f7App.alert(`
+ゲームマスター: ${game.gameMaster.name}<br>
+ターン ${game.turnIndex + 1}<br>
+<span class="color-${selectPanel.color.name}">${selectPanel.color.name}パネルはもうありません！</span>`, '失敗', resolve);
                 $$('.modal-title').addClass('select-fail-modal');
             });
         }
@@ -110,6 +122,13 @@
                     this.f7App.closeModal();
                     resolve(colorName);
                 });
+            });
+        }
+
+        showGameResult() {
+            const game = this.game;
+            return new Promise(resolve => {
+                this.f7App.alert(`${game.loser.name} が負け！`, '終わり！', resolve);
             });
         }
 
