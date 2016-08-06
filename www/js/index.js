@@ -37,7 +37,9 @@
         const game = alcoholicmine.data.currentGame = makeStubGame();
         const gameViewModel = new viewmodels.Game(game, f7App, mainView);
         gameViewModel.showStartTurnModal(4, 'player name');
-        testGame(game);
+        //testGame(game);
+        gameViewModel.showResultSuccessModal(4, 'Player1', game.colors[0]);
+        gameViewModel.showResultFailModal(4, 'Player1', game.colors[0]);
     }
 
     function testGame(game) {
