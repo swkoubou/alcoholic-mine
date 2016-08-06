@@ -1,9 +1,9 @@
 (function () {
-    class Player {
+    class User {
         constructor(name) {
             this.name = name;
         }
     }
 
-    alcoholicmine.models.Player = Player;
+    alcoholicmine.models.User = User;
 }());
