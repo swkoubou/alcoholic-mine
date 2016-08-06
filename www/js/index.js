@@ -1,21 +1,7 @@
-(function (models, viewmodels) {
+(function (models, viewmodels, routes) {
     const app = {
-        initialize: function() {
-            this.bindEvents();
-        },
-
-        bindEvents: function() {
-            document.addEventListener('deviceready', this.onDeviceReady, false);
-        },
-
-
-        onDeviceReady: function() {
-            app.receivedEvent();
-        },
-
-        receivedEvent: function() {
-            appInit();
-        }
+        initialize: () => { document.addEventListener('deviceready', this.onDeviceReady, false); },
+        onDeviceReady: () => { appInit(); }
     };
 
     if (typeof cordova === "undefined") {
@@ -28,17 +14,20 @@
         const f7App = new Framework7({
             material: true
         });
-        const $$ = Dom7;
+        const game = alcoholicmine.data.currentGame = makeStubGame();
+        // testGame(game);
 
         mainView = f7App.addView('.view-main', {});
 
         alcoholicmine.data.f7App = f7App;
         alcoholicmine.data.mainView = mainView;
-        const game = alcoholicmine.data.currentGame = makeStubGame();
-        const gameViewModel = new viewmodels.Game(game, f7App, mainView);
-        gameViewModel.showStartTurnModal(4, 'player name');
-        testGame(game);
+
+        f7App.onPageInit('game', routes.Game(game));
     }
+
+    app.initialize();
+
+    //// tests ////
 
     function testGame(game) {
         // init
@@ -85,6 +74,4 @@
         game.createPanels(colors, 5, 5);
         return game;
     }
-
-    app.initialize();
-}(alcoholicmine.models, alcoholicmine.viewmodels));
+}(alcoholicmine.models, alcoholicmine.viewmodels, alcoholicmine.routes));
