@@ -2,19 +2,45 @@
 <html lang="en">
 <head>
   <meta http-equiv="Content-Security-Policy" content="default-src 'self' data: gap: https://ssl.gstatic.com 'unsafe-eval'; style-src 'self' 'unsafe-inline'; media-src *">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
   <meta name="format-detection" content="telephone=no">
   <meta name="msapplication-tap-highlight" content="no">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#ff9800">
   <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
+  <link rel="stylesheet" href="node_modules/framework7/dist/css/framework7.material.min.css">
+  <link rel="stylesheet" href="node_modules/framework7/dist/css/framework7.material.colors.min.css">
   <link rel="stylesheet" type="text/css" href="css/index.css">
   <title>Alcoholic Mine</title>
 </head>
-<body>
+<body class="theme-orange">
+<div class="statusbar-overlay"></div>
 
-<div class="app">
-  <h1>Alcoholic Mine</h1>
+<div class="views">
+  <div class="view view-main">
+    <div class="pages">
+      <div data-page="index" class="page navbar-fixed no-toolbar">
+        <div class="navbar">
+          <div class="navbar-inner">
+            <div class="center">Alcoholic Mine</div>
+          </div>
+        </div> <!-- /end navbar -->
+
+        <div class="page-content">
+          <div class="content-block">
+            <h1>Hello!</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 
 <script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="node_modules/lodash/lodash.min.js"></script>
+<script type="text/javascript" src="node_modules/framework7/dist/js/framework7.min.js"></script>
+<script type="text/javascript" src="js/config.js"></script>
+<script type="text/javascript" src="js/modules/util.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
 
 </body>
