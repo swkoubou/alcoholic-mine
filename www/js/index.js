@@ -1,21 +1,7 @@
-(function (models, viewmodels) {
+(function (models, viewmodels, routes) {
     const app = {
-        initialize: function() {
-            this.bindEvents();
-        },
-
-        bindEvents: function() {
-            document.addEventListener('deviceready', this.onDeviceReady, false);
-        },
-
-
-        onDeviceReady: function() {
-            app.receivedEvent();
-        },
-
-        receivedEvent: function() {
-            appInit();
-        }
+        initialize: () => { document.addEventListener('deviceready', this.onDeviceReady, false); },
+        onDeviceReady: () => { appInit(); }
     };
 
     if (typeof cordova === "undefined") {
@@ -28,19 +14,26 @@
         const f7App = new Framework7({
             material: true
         });
-        const $$ = Dom7;
+        const game = alcoholicmine.data.currentGame = makeStubGame();
+        // testGame(game);
 
         mainView = f7App.addView('.view-main', {});
 
         alcoholicmine.data.f7App = f7App;
         alcoholicmine.data.mainView = mainView;
-        const game = alcoholicmine.data.currentGame = makeStubGame();
-        const gameViewModel = new viewmodels.Game(game, f7App, mainView);
-        gameViewModel.showStartTurnModal(4, 'player name');
+
+        // const gameViewModel = new viewmodels.Game(game, f7App, mainView);
+        // gameViewModel.showStartTurnModal(4, 'player name');
         //testGame(game);
-        gameViewModel.showResultSuccessModal(4, 'Player1', game.colors[0]);
-        gameViewModel.showResultFailModal(4, 'Player1', game.colors[0]);
+        // gameViewModel.showResultSuccessModal(4, 'Player1', game.colors[0]);
+        // gameViewModel.showResultFailModal(4, 'Player1', game.colors[0]);
+
+        f7App.onPageInit('game', routes.Game(game, f7App));
     }
+
+    app.initialize();
+
+    //// tests ////
 
     function testGame(game) {
         // init
@@ -79,7 +72,7 @@
     }
 
     function makeStubGame() {
-        const colors = ['#f44336', '#2196f3', '#4caf50'].map(x => new models.Color(x));
+        const colors = [['red', '#f44336'], ['blue', '#2196f3'], ['green', '#4caf50']].map(x => new models.Color(...x));
         const users = ['nakazawa', 'kikuchi', 'nishi'].map(x => new models.User(x));
         const game = new models.Game();
         users.forEach(user => game.addUser(user));
@@ -89,4 +82,4 @@
     }
 
     app.initialize();
-}(alcoholicmine.models, alcoholicmine.viewmodels));
+}(alcoholicmine.models, alcoholicmine.viewmodels, alcoholicmine.routes));
