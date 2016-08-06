@@ -7,8 +7,8 @@
             this.currentBgmName = null;
         }
 
-        addBgm(name, url, params) {
-            this.bgms[name]= new Sound(url, params);
+        addBgm(name, url) {
+            this.bgms[name]= new Sound(url, {loop: true});
             return this;
         }
 

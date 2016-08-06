@@ -1,12 +1,14 @@
 (function (routes, models, viewmodels, $$) {
-    routes.Game = (f7App, mainView) => {
+    routes.Game = (f7App, mainView, bgmController) => {
         return (page) => {
             const game = page.query.game;
             const gameViewModel = new viewmodels.Game(f7App, mainView, page, game);
             gameViewModel.initGamePage();
             game.gameStart();
 
+            bgmController.start('memorize');
             startMemorizePhase(game, gameViewModel).then(() => {
+                bgmController.start('main');
                 return turnLoop(game, gameViewModel);
             }).catch(() => {
                 if ([models.GameStatus.LOSE_GAME_MASTER, models.GameStatus.LOSE_PLAYER].includes(game.status)) {
