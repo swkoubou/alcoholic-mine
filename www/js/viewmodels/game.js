@@ -57,7 +57,9 @@
         }
         
         showStartTurnModal(turnIndex, currentPlayerName) {
-            this.f7App.alert('プレイヤー: '+currentPlayerName, 'ターン '+turnIndex);
+            return new Promise(resolve => {
+                this.f7App.alert(`プレイヤー: ${currentPlayerName}`, `ターン ${turnIndex}`, resolve);
+            });
         }
 
         showSelectColorPopup() {
