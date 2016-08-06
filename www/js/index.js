@@ -21,19 +21,29 @@
         registerTemplateHelper();
         const mainView = f7App.addView('.view-main', {});
 
-        const bgmController = new models.BgmController();
+        const bgmController = new models.SoundController();
         bgmController
-            .addBgm('main', 'sound/bgm/main.wav')
-            .addBgm('result', 'sound/bgm/result.mp3')
-            .addBgm('memorize', 'sound/bgm/thinking.wav')
+            .addBgm('main', 'sound/bgm/main.wav', {loop: true})
+            .addBgm('result', 'sound/bgm/result.mp3', {loop: true})
+            .addBgm('memorize', 'sound/bgm/thinking.wav', {loop: true})
             .allPreload()
             .then(() => {
                 bgmController.start('main');
             })
             .catch(e => console.error(e && (e.stack || e)));
 
-        f7App.onPageInit('game', routes.Game(f7App, mainView, bgmController));
-        f7App.onPageInit('result', routes.Result(f7App, mainView, bgmController));
+        const seController = new models.SoundController();
+        seController
+            .addBgm('selectColor', 'sound/se/color.wav', {loop: false})
+            .addBgm('correct', 'sound/se/correct.wav', {loop: false})
+            .addBgm('incorrect', 'sound/se/incorrect.wav', {loop: false})
+            .addBgm('gameStart', 'sound/se/gamestart.mp3', {loop: false})
+            .addBgm('turnStart', 'sound/se/turnstart.wav', {loop: false})
+            .allPreload()
+            .catch(e => console.error(e && (e.stack || e)));
+
+        f7App.onPageInit('game', routes.Game(f7App, mainView, bgmController, seController));
+        f7App.onPageInit('result', routes.Result(f7App, mainView, bgmController, seController));
 
         const game = makeStubGame();
         setTimeout(() => mainView.router.load({url: 'game.html', query: {game}, context: {game}}), 3000);

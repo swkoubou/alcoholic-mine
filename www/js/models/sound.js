@@ -1,4 +1,6 @@
 (function (AudioContext) {
+    const _context = new AudioContext();
+
     class Sound {
         constructor(url, {loop=false}={}) {
             this.url = url;
@@ -9,7 +11,7 @@
         }
 
         fetchAudioBuffer() {
-            this.context = new AudioContext();
+            this.context = _context;
 
             return new Promise((resolve, reject) => {
                 const req = new XMLHttpRequest();
