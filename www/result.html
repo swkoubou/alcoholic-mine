@@ -9,7 +9,14 @@
   <div class="page-content">
     <div class="content-block">
       <p class="lost-block">
-        敗者: <span class="loser">{{game.loser.name}}</span>
+        <span class="loser-type">
+          {{#if game.loseGameMaster}}
+          ゲームマスター
+          {{else}}
+          プレイヤー
+          {{/if}}
+        </span>
+        (<span class="loser">{{game.loser.name}}</span>) の負け
       </p>
     </div>
   </div>

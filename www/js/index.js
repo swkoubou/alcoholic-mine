@@ -16,6 +16,7 @@
             template7Pages: true,
             precompileTemplates: true
         });
+        registerTemplateHelper();
         const mainView = f7App.addView('.view-main', {});
 
         f7App.onPageInit('game', routes.Game(f7App, mainView));
@@ -23,6 +24,12 @@
 
         const game = makeStubGame();
         setTimeout(() => mainView.router.load({url: 'game.html', query: {game}, context: {game}}), 1000);
+    }
+
+    function registerTemplateHelper() {
+        Template7.registerHelper('ifeq', function (a, b, opts) {
+            a === b ? opts.fn(this, opts.data) : opts.inverse(this, opts.data);
+        })
     }
 
     app.initialize();

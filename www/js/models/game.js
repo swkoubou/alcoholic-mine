@@ -113,6 +113,14 @@
         get maxTurn() {
             return this.row * this.column;
         }
+
+        get loseGameMaster () {
+            return this.status === models.GameStatus.LOSE_GAME_MASTER;
+        }
+
+        get losePlayer () {
+            return this.status === models.GameStatus.LOSE_PLAYER;
+        }
     }
 
     models.Game = Game;
