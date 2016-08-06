@@ -12,6 +12,6 @@
 ```
 cd www/
 npm install
-compass copmile
+compass compile
 ```
 
