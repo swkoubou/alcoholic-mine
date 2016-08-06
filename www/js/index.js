@@ -17,16 +17,23 @@
             appInit();
         }
     };
-    const $$ = Dom7;
+
+    if (typeof cordova === "undefined") {
+        app.onDeviceReady();
+    } else {
+        app.initialize();
+    }
 
     function appInit() {
         const f7App = new Framework7({
             material: true
         });
+        const $$ = Dom7;
 
         mainView = myApp.addView('.view-main', {});
 
         alcoholicmine.data.f7App = f7App;
+        alcoholicmine.data.mainView = mainView;
     }
 
     app.initialize();
