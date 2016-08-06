@@ -1,15 +1,33 @@
-(function (routes, viewmodels, $$) {
+(function (routes, models, viewmodels, $$) {
     routes.Game = (game, f7App) => {
         return (page) => {
             const gameViewModel = new viewmodels.Game(game, f7App, page);
             gameViewModel.initGamePage();
-
             game.gameStart();
-            turnLoop(game, gameViewModel).catch(() => {
-                return gameViewModel.showGameResult();
+
+            startMemorizePhase(game, gameViewModel).then(() => {
+                return turnLoop(game, gameViewModel);
+            }).catch(e => {
+                if ([models.GameStatus.LOSE_GAME_MASTER, models.GameStatus.LOSE_PLAYER].includes(game.status)) {
+                    return gameViewModel.showGameResult();
+                } else {
+                    console.error(e && (e.stack || e));
+                }
             });
         };
     };
+
+    function startMemorizePhase(game, gameViewModel){
+        game.fillPanelActive(false);
+        gameViewModel.updatePage();
+        return new Promise(resolve => {
+            setTimeout(() => {
+                game.fillPanelActive(true);
+                gameViewModel.updatePage();
+                resolve();
+            }, 4000);
+        });
+    }
 
     function turnLoop(game, gameViewModel) {
         return startTurn(game, gameViewModel).then(() => {
@@ -25,7 +43,6 @@
             gameViewModel.updatePage();
             return startPlayerTurn(game, gameViewModel);
         }).then(() => {
-            return gameViewModel.updatePage();
         });
     }
 
@@ -36,7 +53,7 @@
                 if (game.selectColor(color)) {
                     resolve();
                 } else {
-                    gameViewModel.showSelectColorFailModal(color).then(reject);
+                    gameViewModel.showSelectColorFailModal(color).then(reject, reject);
                 }
             });
         });
@@ -54,13 +71,15 @@
             gameViewModel.addClickEventPanels((ele, item, panel) => {
                 if (!first) { return; }
                 first = false;
-                if (game.selectPanel(panel)) {
-                    gameViewModel.showSelectPanelSuccessModal(panel).then(resolve);
+                const result = game.selectPanel(panel);
+                gameViewModel.updatePage();
+                if (result) {
+                    gameViewModel.showSelectPanelSuccessModal(panel).then(resolve, reject);
                 } else {
-                    gameViewModel.showSelectPanelFailModal(panel).then(reject);
+                    gameViewModel.showSelectPanelFailModal(panel).then(reject, reject);
                 }
             });
         });
     }
 
-}(alcoholicmine.routes, alcoholicmine.viewmodels, Dom7));
+}(alcoholicmine.routes, alcoholicmine.models, alcoholicmine.viewmodels, Dom7));

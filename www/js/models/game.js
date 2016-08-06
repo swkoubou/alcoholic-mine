@@ -45,7 +45,7 @@
                 throw new Error('game was started');
             } else {
                 this.status = GameStatus.TURN_GAME_MASTER;
-                this.turn = 0;
+                this.turnIndex = 0;
                 this.panels.forEach(xs => xs.forEach(x => x.isActive = true));
             }
         }
@@ -77,6 +77,8 @@
                 throw new Error('select panel is not active');
             }
 
+            panel.isActive = false;
+
             // 正解パネルか
             if (panel.color === this.currentColor) {
                 this.status = GameStatus.TURN_GAME_MASTER;
@@ -87,6 +89,14 @@
                 this.loser = this.currentPlayer;
                 return false;
             }
+        }
+
+        fillPanelActive(status){
+            this.panels.forEach(xs =>{
+                xs.forEach(x =>{
+                    x.isActive = status;
+                });
+            });
         }
 
         // 指定した色のパネルが残っているか

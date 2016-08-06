@@ -27,7 +27,7 @@
                 const tr = $$('<tr>');
                 line.forEach((panel, x) =>{
                     const td = $$(`<td class="panel-item" data-x="${x}" data-y="${y}"></td>`);
-                    td.css('background-color', panel.color.rgb);
+                    td.css('background-color', panel.isActive ? '#ffffff' : panel.color.rgb);
                     tr.append(td);
                 });
                 table.append(tr);
@@ -65,7 +65,7 @@
             this.doms.panelListBlock.children().remove();
             this.doms.panelListBlock.append(panelBlock);
         }
-        
+
         showStartTurnModal() {
             return new Promise(resolve => {
                 this.f7App.alert(`プレイヤー: ${this.game.currentPlayer.name}`, `ターン ${this.game.turnIndex + 1}`, resolve);
@@ -74,8 +74,8 @@
 
         showPlayerTurnModal() {
             return new Promise(resolve => {
-                this.f7App.alert('パネルを選択してください', `プレイヤー(${this.game.currentPlayer.name})の番です。`, resolve)
-            })
+                this.f7App.alert('パネルを選択してください', `プレイヤー(${this.game.currentPlayer.name})の番です。`, resolve);
+            });
         }
 
         showSelectPanelSuccessModal(selectPanel) {
@@ -107,7 +107,7 @@
                 this.f7App.alert(`
 ゲームマスター: ${game.gameMaster.name}<br>
 ターン ${game.turnIndex + 1}<br>
-<span class="color-${selectPanel.color.name}">${selectPanel.color.name}パネルはもうありません！</span>`, '失敗', resolve);
+<span class="color-${selectColor.name}">${selectColor.name} パネルはもうありません！</span>`, '失敗', resolve);
                 $$('.modal-title').addClass('select-fail-modal');
             });
         }
@@ -127,9 +127,7 @@
 
         showGameResult() {
             const game = this.game;
-            return new Promise(resolve => {
-                this.f7App.alert(`${game.loser.name} が負け！`, '終わり！', resolve);
-            });
+            return new Promise(resolve => this.f7App.alert(`${game.loser.name} が負け！`, '終わり！', resolve));
         }
 
         static get templatePopupTemplate() {
