@@ -23,17 +23,27 @@
         createPanelBlock(panels) {
             const table = $$('<table class="panel-list"></table>');
 
-            panels.forEach(xs => {
+            panels.forEach((line, y) => {
                 const tr = $$('<tr>');
-                xs.forEach(x =>{
-                    const td = $$('<td class="panel-item"></td>');
-                    td.css('background-color',x.color.rgb);
+                line.forEach((panel, x) =>{
+                    const td = $$(`<td class="panel-item" data-x="${x}" data-y="${y}"></td>`);
+                    td.css('background-color', panel.color.rgb);
                     tr.append(td);
                 });
                 table.append(tr);
             });
 
             return table;
+        }
+
+        addClickEventPanels(callback) {
+            $$('.panel-item').on('click', ele => {
+                const item = $$(ele.target);
+                const panel = this.game.panels[item.attr('data-y')][item.attr('data-x')];
+                // if (panel.isActive) {
+                callback(ele, item, panel);
+                // }
+            });
         }
 
         updatePage() {
@@ -69,21 +79,23 @@
         }
 
         showResultSuccessModal(selectedColor) {
+            const game = this.game;
             return new Promise(resolve => {
                 this.f7App.alert(`
-プレイヤー: ${this.currentPlayer.name}<br>ターン ${this.turnIndex + 1}<br>
+プレイヤー: ${game.currentPlayer.name}<br>ターン ${game.turnIndex + 1}<br>
 選択:<span class="color-${selectedColor.name}">${selectedColor.name}</span><br>
-正解:<span class="color-${this.currentColor.name}">${this.currentColor.name}</span>`, '成功', resolve);
+正解:<span class="color-${game.currentColor.name}">${game.currentColor.name}</span>`, '成功', resolve);
                 $$('.modal-title').addClass('select-success-modal');
             });
         }
         showResultFailModal(selectedColor) {
+            const game = this.game;
             return new Promise(resolve => {
                 this.f7App.alert(`
-プレイヤー: ${this.currentPlayer.name}<br>
-ターン ${this.turnIndex + 1}<br>
+プレイヤー: ${game.currentPlayer.name}<br>
+ターン ${game.turnIndex + 1}<br>
 選択:<span class="color-${selectedColor.name}">${selectedColor.name}</span><br>
-正解:<span class="color-${this.currentColor.name}">${this.currentColor.name}</span>`, '失敗', resolve);
+正解:<span class="color-${game.currentColor.name}">${game.currentColor.name}</span>`, '失敗', resolve);
                 $$('.modal-title').addClass('select-fail-modal');
             });
         }
