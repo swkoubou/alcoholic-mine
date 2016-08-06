@@ -1,0 +1,21 @@
+{
+  "name": "AlcoholicMine",
+  "version": "0.0.1",
+  "description": "Alcoholic Mine",
+  "main": "index.js",
+  "script": {},
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/swkoubou/alcoholic-mine.git"
+  },
+  "author": "snakazawa",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/swkoubou/alcoholic-mine/issues"
+  },
+  "homepage": "https://github.com/swkoubou/alcoholic-mine#readme",
+  "dependencies": {
+    "framework7": "~1.4",
+    "lodash": "~4.14"
+  }
+}

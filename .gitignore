@@ -1,0 +1,20 @@
+# cordova
+/platforms/
+/plugins/
+
+# Intellij IDEA
+.idea/
+*.iml
+
+# temp
+*.sw[mnpcod]
+*.log
+*.tmp
+*.tmp.*
+log.txt
+
+# npm
+node_modules/
+
+# scss
+www/css/*
