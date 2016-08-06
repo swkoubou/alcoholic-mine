@@ -89,6 +89,14 @@
             }
         }
 
+        fillPanelActive(status){
+            this.panels.forEach(xs =>{
+                xs.forEach(x =>{
+                    x.isActive = status;
+                });
+            });
+        }
+
         // 指定した色のパネルが残っているか
         _checkRemainedColor(color) {
             return this.panels.some(xs => {

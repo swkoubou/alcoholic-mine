@@ -22,18 +22,33 @@
 
         createPanelBlock(panels) {
             const table = $$('<table>');
-
+            // setTimeout(this.storePhase(panels,false),5000);
             panels.forEach(xs => {
                 const tr = $$('<tr>');
                 xs.forEach(xss =>{
                     const td = $$('<td>');
-                    td.css('background-color',xss.color.rgb);
+                    if(xss.isActive)
+                        td.css('background-color',xss.color.rgb);
+                    else
+                        td.css('background-color','#ffffff');
                     tr.append(td);
                 });
                 table.append(tr);
             });
 
             return table;
+        }
+
+        viewMemorizePhase(){
+            this.game.fillPanelActive(true);
+            this.updatePage();
+            return new Promise(resolve =>{
+                setTimeout(() => {
+                    this.game.fillPanelActive(false);
+                    this.updatePage();
+                    resolve();
+                }, 4000);
+            });
         }
 
         updatePage() {
@@ -55,7 +70,7 @@
             this.doms.panelListBlock.children().remove();
             this.doms.panelListBlock.append(panelBlock);
         }
-        
+
         showStartTurnModal(turnIndex, currentPlayerName) {
             this.f7App.alert('プレイヤー: '+currentPlayerName, 'ターン '+turnIndex);
         }

@@ -4,6 +4,8 @@
             const GameViewModel = new viewmodels.Game(game, f7App, page);
             GameViewModel.initGamePage();
 
+            GameViewModel.viewMemorizePhase();
+
             // ターン開始ごとに `GameViewModel.updatePage()`
         };
     };
