@@ -24,6 +24,13 @@
 
         const game = makeStubGame();
         setTimeout(() => mainView.router.load({url: 'game.html', query: {game}, context: {game}}), 1000);
+
+        let bgm = new models.Sound('sound/main.wav', {loop: true});
+        bgm.fetchAudioBuffer().then(() => {
+            bgm.start();
+            setTimeout(() => bgm.stop(), 3000);
+            setTimeout(() => bgm.start(), 5000);
+        });
     }
 
     function registerTemplateHelper() {
