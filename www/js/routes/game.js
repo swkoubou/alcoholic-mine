@@ -5,27 +5,40 @@
             gameViewModel.initGamePage();
 
             game.gameStart();
-
-            // start turn
-            gameViewModel.showStartTurnModal().then(() => {
-                gameViewModel.updatePage();
-                return startGameMasterTurn(game, gameViewModel);
-            }).then(() => {
-                gameViewModel.updatePage();
-                return startPlayerTurn(game, gameViewModel);
-            }).then(() => {
-                return gameViewModel.updatePage();
-            }, (panel) => {
-                console.error('reject', e);
+            turnLoop(game, gameViewModel).catch(() => {
+                return gameViewModel.showGameResult();
             });
         };
     };
 
+    function turnLoop(game, gameViewModel) {
+        return startTurn(game, gameViewModel).then(() => {
+            return turnLoop(game, gameViewModel);
+        });
+    }
+
+    function startTurn(game, gameViewModel) {
+        return gameViewModel.showStartTurnModal().then(() => {
+            gameViewModel.updatePage();
+            return startGameMasterTurn(game, gameViewModel);
+        }).then(() => {
+            gameViewModel.updatePage();
+            return startPlayerTurn(game, gameViewModel);
+        }).then(() => {
+            return gameViewModel.updatePage();
+        });
+    }
+
     function startGameMasterTurn(game, gameViewModel) {
-        return gameViewModel.showSelectColorPopup().then(selectedColorName => {
-            const color = game.colors.find(color => color.name === selectedColorName);
-            const result = game.selectColor(color);
-            return result;
+        return new Promise((resolve, reject) => {
+            gameViewModel.showSelectColorPopup().then(selectedColorName => {
+                const color = game.colors.find(color => color.name === selectedColorName);
+                if (game.selectColor(color)) {
+                    resolve();
+                } else {
+                    gameViewModel.showSelectColorFailModal(color).then(reject);
+                }
+            });
         });
     }
 
@@ -42,9 +55,9 @@
                 if (!first) { return; }
                 first = false;
                 if (game.selectPanel(panel)) {
-                    gameViewModel.showResultSuccessModal(panel.color, resolve);
+                    gameViewModel.showSelectPanelSuccessModal(panel).then(resolve);
                 } else {
-                    gameViewModel.showResultFailModal(panel.color, reject);
+                    gameViewModel.showSelectPanelFailModal(panel).then(reject);
                 }
             });
         });
