@@ -19,10 +19,17 @@ div[data-page=game] {
       }
     }
   }
-
 }
 
 .select-color-popup {
   border-top: 1px solid #ff9800;
   height: auto;
+}
+
+.select-success-modal {
+  color: green;
+}
+
+.select-fail-modal {
+  color: red;
 }

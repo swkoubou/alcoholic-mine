@@ -23,6 +23,7 @@
         alcoholicmine.data.mainView = mainView;
 
         f7App.onPageInit('game', routes.Game(game, f7App));
+        f7App.onPageInit('result', routes.Result(game, f7App));
     }
 
     app.initialize();
