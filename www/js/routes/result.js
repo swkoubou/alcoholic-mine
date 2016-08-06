@@ -1,5 +1,5 @@
 (function (routes, models, viewmodels, $$) {
-    routes.Result = (game, f7App) => {
+    routes.Result = (f7App, mainView) => {
         return (page) => {
         };
     };
