@@ -15,14 +15,14 @@
             material: true
         });
         const game = alcoholicmine.data.currentGame = makeStubGame();
-        // testGame();
+        // testGame(game);
 
         mainView = f7App.addView('.view-main', {});
 
-        f7App.onPageInit('game', routes.Game(game));
-
         alcoholicmine.data.f7App = f7App;
         alcoholicmine.data.mainView = mainView;
+
+        f7App.onPageInit('game', routes.Game(game));
     }
 
     app.initialize();
