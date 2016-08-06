@@ -36,7 +36,7 @@
                 if (game.selectColor(color)) {
                     resolve();
                 } else {
-                    gameViewModel.showSelectColorFailModal(color, reject);
+                    gameViewModel.showSelectColorFailModal(color).then(reject);
                 }
             });
         });
@@ -55,9 +55,9 @@
                 if (!first) { return; }
                 first = false;
                 if (game.selectPanel(panel)) {
-                    gameViewModel.showSelectPanelSuccessModal(panel, resolve);
+                    gameViewModel.showSelectPanelSuccessModal(panel).then(resolve);
                 } else {
-                    gameViewModel.showSelectPanelFailModal(panel, reject);
+                    gameViewModel.showSelectPanelFailModal(panel).then(reject);
                 }
             });
         });
