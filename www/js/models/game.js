@@ -89,15 +89,19 @@
             }
         }
 
-        get currentPlayer() {
-            return this.players[this.turnIndex % this.players.length];
-        }
-
         // 指定した色のパネルが残っているか
         _checkRemainedColor(color) {
             return this.panels.some(xs => {
                 return xs.some(panel => panel.color === color);
             })
+        }
+
+        get currentPlayer() {
+            return this.players[this.turnIndex % this.players.length];
+        }
+
+        get maxTurn() {
+            return this.row * this.column;
         }
     }
 
