@@ -4,6 +4,7 @@
             this.color = color;
             this.isActive = isActive;
         }
+
     }
 
     alcoholicmine.models.Panel = Panel;
