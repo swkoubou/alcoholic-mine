@@ -22,54 +22,12 @@
         alcoholicmine.data.f7App = f7App;
         alcoholicmine.data.mainView = mainView;
 
-        const gameViewModel = new viewmodels.Game(game, f7App, mainView);
-        // gameViewModel.showStartTurnModal(4, 'player name');
-        //testGame(game);
-        // gameViewModel.showResultSuccessModal(4, 'Player1', game.colors[0]);
-        // gameViewModel.showResultFailModal(4, 'Player1', game.colors[0]);
-
         f7App.onPageInit('game', routes.Game(game, f7App));
     }
 
     app.initialize();
 
     //// tests ////
-
-    function testGame(game) {
-        // init
-        console.log(`game master is ${game.gameMaster.name}`);
-        console.log(`players is ${game.players.map(x => x.name)}`);
-        game.gameStart();
-
-        // first turn
-        console.log('### first turn ###');
-        console.log(`current player is ${game.currentPlayer.name}`);
-        console.log(`game status is ${game.status}`);
-
-        // game master will select color
-        const selectColorResult = game.selectColor(_.sample(game.colors));
-        console.log(`selected color is ${game.currentColor}`);
-        console.log(`result of selectColor is ${selectColorResult}`);
-        console.log(`game status is ${game.status}`);
-
-        // player will select panel
-        const selectPanel = _.sample(_.sample(game.panels));
-        console.log(`selected panel is ${selectPanel}`);
-        const selectPanelResult = game.selectPanel(selectPanel);
-        console.log(`result of selectPanel is ${selectPanelResult}`);
-        console.log(`game status is ${game.status}`);
-
-        // second turn or result
-        if (game.loser) {
-            console.log('### game end ###');
-            console.log(`loser is ${game.currentPlayer.name}`);
-            console.log(`game status is ${game.status}`);
-        } else {
-            console.log('### second turn ###');
-            console.log(`current player is ${game.currentPlayer.name}`);
-            console.log(`game status is ${game.status}`);
-        }
-    }
 
     function makeStubGame() {
         const colors = [['red', '#f44336'], ['blue', '#2196f3'], ['green', '#4caf50']].map(x => new models.Color(...x));
