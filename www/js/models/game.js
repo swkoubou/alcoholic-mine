@@ -34,8 +34,8 @@
             this.column = column;
             this.colors = colors;
 
-            this.panels = _.range(row).map(y => {
-                _.range(column).map(x => { new Panel(_.sample(colors)); });
+            return this.panels = _.range(row).map(y => {
+                return _.range(column).map(x => new Panel(_.sample(colors)) );
             });
         }
 
