@@ -22,7 +22,7 @@
         alcoholicmine.data.f7App = f7App;
         alcoholicmine.data.mainView = mainView;
 
-        // const gameViewModel = new viewmodels.Game(game, f7App, mainView);
+        const gameViewModel = new viewmodels.Game(game, f7App, mainView);
         // gameViewModel.showStartTurnModal(4, 'player name');
         //testGame(game);
         // gameViewModel.showResultSuccessModal(4, 'Player1', game.colors[0]);

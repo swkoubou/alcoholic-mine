@@ -57,16 +57,27 @@
         }
         
         showStartTurnModal(turnIndex, currentPlayerName) {
-          this.f7App.alert(`プレイヤー: ${currentPlayerName}`, `ターン ${turnIndex}`);
+            this.f7App.alert(`プレイヤー: ${currentPlayerName}`, `ターン ${turnIndex}`);
         }
 
-        showResultSuccessModal(turnIndex,currentPlayerName,color) {
-          this.f7App.alert(`プレイヤー: ${currentPlayerName}`+ `<br>ターン ${turnIndex}<br>`+`選択:<span class="bg-blue">　　</span><br>`+`正解:<span class="bg-blue"> </span>`, '成功');
-          $$('.modal-title').addClass('select-success-modal');
+        showResultSuccessModal(selectedColor) {
+            return new Promise(resolve => {
+                this.f7App.alert(`
+プレイヤー: ${this.currentPlayer.name}<br>ターン ${this.turnIndex + 1}<br>
+選択:<span class="color-${selectedColor.name}">${selectedColor.name}</span><br>
+正解:<span class="color-${this.currentColor.name}">${this.currentColor.name}</span>`, '成功', resolve);
+                $$('.modal-title').addClass('select-success-modal');
+            });
         }
-        showResultFailModal(turnIndex,currentPlayerName,color) {
-          this.f7App.alert(`プレイヤー: ${currentPlayerName}<br>`+ `ターン ${turnIndex}<br>`+`選択:<span class="color-blue">blue</span><br>`+`正解:<span class="bg-blue"> </span>`, '失敗'); 
-          $$('.modal-title').addClass('select-fail-modal');
+        showResultFailModal(selectedColor) {
+            return new Promise(resolve => {
+                this.f7App.alert(`
+プレイヤー: ${this.currentPlayer.name}<br>
+ターン ${this.turnIndex + 1}<br>
+選択:<span class="color-${selectedColor.name}">${selectedColor.name}</span><br>
+正解:<span class="color-${this.currentColor.name}">${this.currentColor.name}</span>`, '失敗', resolve);
+                $$('.modal-title').addClass('select-fail-modal');
+            });
         }
 
         showSelectColorPopup() {
