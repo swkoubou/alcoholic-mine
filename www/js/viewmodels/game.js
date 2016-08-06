@@ -21,13 +21,13 @@
         }
 
         createPanelBlock(panels) {
-            const table = $$('<table>');
+            const table = $$('<table class="panel-list"></table>');
 
             panels.forEach(xs => {
                 const tr = $$('<tr>');
-                xs.forEach(xss =>{
-                    const td = $$('<td>');
-                    td.css('background-color',xss.color.rgb);
+                xs.forEach(x =>{
+                    const td = $$('<td class="panel-item"></td>');
+                    td.css('background-color',x.color.rgb);
                     tr.append(td);
                 });
                 table.append(tr);
@@ -47,8 +47,8 @@
                 this.doms.turnPlayerName.text(game.currentPlayer.name);
             }
             if (game.currentColor) {
-                this.doms.currentColor.text(game.currentColor.rgb);
-                this.doms.currentColor.css('background-color', game.currentColor.rgb);
+                this.doms.currentColor.text(game.currentColor.name);
+                this.doms.currentColor.css('color', game.currentColor.rgb);
             }
 
             const panelBlock = this.createPanelBlock(this.game.panels);
