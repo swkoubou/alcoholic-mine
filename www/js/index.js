@@ -1,7 +1,9 @@
 (function (models, viewmodels, routes) {
     const app = {
         initialize: () => { document.addEventListener('deviceready', this.onDeviceReady, false); },
-        onDeviceReady: () => { appInit(); }
+        onDeviceReady: () => {
+            appInit();
+        }
     };
 
     if (typeof cordova === "undefined") {
@@ -25,12 +27,15 @@
         const game = makeStubGame();
         setTimeout(() => mainView.router.load({url: 'game.html', query: {game}, context: {game}}), 1000);
 
-        let bgm = new models.Sound('sound/main.wav', {loop: true});
-        bgm.fetchAudioBuffer().then(() => {
-            bgm.start();
-            setTimeout(() => bgm.stop(), 3000);
-            setTimeout(() => bgm.start(), 5000);
-        });
+        const bgmController = new models.BgmController();
+        bgmController
+            .addBgm('main', 'sound/main.wav')
+            .addBgm('memorization', 'sound/memorization.wav')
+            .allPreload()
+            .then(() => {
+                bgmController.start('main');
+            })
+            .catch(e => console.error(e && (e.stack || e)));
     }
 
     function registerTemplateHelper() {
