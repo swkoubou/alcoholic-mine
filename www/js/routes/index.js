@@ -16,7 +16,7 @@
 
     function makeGame() {
         const settings = data.settings;
-        const game = new models.Game({memorizeDuration: 3000});
+        const game = new models.Game({memorizeDuration: settings.memorizeDuration});
         const colors = data.defaultColors.slice(0, settings.colorNumber).map(x => new models.Color(...x));
         const users = settings.users.split(',').map(x => new models.User(x));
         users.forEach(user => game.addUser(user));
