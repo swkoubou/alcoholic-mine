@@ -84,6 +84,7 @@
         showPlayerTurnModal() {
             return new Promise(resolve => {
                 this.f7App.alert('パネルを選択してください', `プレイヤー(${this.game.currentPlayer.name})の番です。`, resolve);
+                $$('.modal').addClass('player-modal');
             });
         }
 
@@ -124,7 +125,7 @@
                 this.f7App.alert(`
 ゲームマスター: ${game.gameMaster.name}<br>
 ターン ${game.turnIndex + 1}<br>
-<span class="color-${selectColor.name}">${selectColor.name} パネルはもうありません！</span>`, '失敗', resolve);
+<span class="color-${selectColor.name}">${selectColor.name}</span> パネルはもうありません！`, '失敗', resolve);
                 $$('.modal-title').addClass('select-fail-modal');
             });
         }

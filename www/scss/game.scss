@@ -35,6 +35,8 @@ div[data-page=game] {
 .select-color-popup {
   border-top: 1px solid #ff9800;
   height: auto;
+  background: #ffffff url(../img/GM2.png) no-repeat 102% -70%;
+  background-size: 25% auto;
 }
 
 .select-success-modal {
@@ -43,4 +45,9 @@ div[data-page=game] {
 
 .select-fail-modal {
   color: red;
+}
+
+.player-modal {
+  background: #ffffff url(../img/player2.png) no-repeat 107% 2%;
+  background-size: 35% auto;
 }
