@@ -124,7 +124,7 @@
                 this.f7App.alert(`
 ゲームマスター: ${game.gameMaster.name}<br>
 ターン ${game.turnIndex + 1}<br>
-<span class="color-${selectColor.name}">${selectColor.name} パネルはもうありません！</span>`, '失敗', resolve);
+<span class="color-${selectColor.name}">${selectColor.name}</span> パネルはもうありません！`, '失敗', resolve);
                 $$('.modal-title').addClass('select-fail-modal');
             });
         }
