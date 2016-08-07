@@ -72,9 +72,12 @@
             this.doms.panelListBlock.append(panelBlock);
         }
 
-        showStartTurnModal() {
+        showStartGameModal() {
             return new Promise(resolve => {
-                this.f7App.alert(`プレイヤー: ${this.game.currentPlayer.name}`, `ターン ${this.game.turnIndex + 1}`, resolve);
+                this.f7App.alert(`
+ゲームマスター: ${this.game.gameMaster.name}<Br>
+プレイヤー: ${this.game.players.map(x => x.name)}
+`, `ゲーム開始`, resolve);
             });
         }
 
@@ -88,10 +91,17 @@
             const game = this.game;
             return new Promise(resolve => {
                 // 成功時はターンが先に進んでいるのでindex(1-index)-1 = index(0-index)を表示する
-                this.f7App.alert(`
-プレイヤー: ${game.currentPlayer.name}<br>ターン ${game.turnIndex}<br>
+                this.f7App.modal({
+                    title: '成功',
+                    // 成功時はターンが先に進んでいるのでindex(1-index)-1 = index(0-index)を表示する
+                    text: `プレイヤー: ${game.currentPlayer.name}<br>ターン ${game.turnIndex}<br>
 選択:<span class="color-${selectPanel.color.name}">${selectPanel.color.name}</span><br>
-正解:<span class="color-${game.currentColor.name}">${game.currentColor.name}</span>`, '成功', resolve);
+正解:<span class="color-${game.currentColor.name}">${game.currentColor.name}</span>`,
+                    buttons: [{
+                        text: 'Next Stage',
+                        onClick: resolve
+                    }]
+                });
                 $$('.modal-title').addClass('select-success-modal');
             });
         }
@@ -119,6 +129,20 @@
             });
         }
 
+        showMemorizeStartModal() {
+            const game = this.game;
+            return new Promise(resolve => {
+                this.f7App.modal({
+                    title: 'パネルの記憶フェーズを開始します。',
+                    text: `制限時間は ${game.memorizeDuration}ms です。` ,
+                    buttons: [{
+                        text: 'Start',
+                        onClick: resolve
+                    }]
+                });
+            });
+        }
+
         showSelectColorPopup() {
             return new Promise((resolve) => {
                 const popup = Game.templatePopupTemplate(this.game);
@@ -130,11 +154,6 @@
                     resolve(colorName);
                 });
             });
-        }
-
-        showGameResult() {
-            const game = this.game;
-            return new Promise(resolve => this.f7App.alert(`${game.loser.name} が負け！`, '終わり！', resolve));
         }
 
         static get templatePopupTemplate() {

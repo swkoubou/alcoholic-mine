@@ -62,7 +62,7 @@
     function makeStubGame() {
         const colors = [['red', '#f44336'], ['blue', '#2196f3'], ['green', '#4caf50']].map(x => new models.Color(...x));
         const users = ['nakazawa', 'kikuchi', 'nishi'].map(x => new models.User(x));
-        const game = new models.Game();
+        const game = new models.Game({memorizeDuration: 3000});
         users.forEach(user => game.addUser(user));
         game.setGameMaster(_.sample(users));
         game.createPanels(colors, 2, 2);

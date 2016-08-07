@@ -6,16 +6,20 @@
             gameViewModel.initGamePage();
             game.gameStart();
 
-            bgmController.start('memorize');
-            startMemorizePhase().then(() => {
+            gameViewModel.showMemorizeStartModal().then(() => {
+                bgmController.start('memorize');
+                return startMemorizePhase();
+            }).then(() => {
                 bgmController.start('main');
                 seController.start('gameStart');
+                return gameViewModel.showStartGameModal();
+            }).then(() => {
                 return turnLoop();
-            }).catch(() => {
+            }).catch(e => {
                 if ([models.GameStatus.LOSE_GAME_MASTER, models.GameStatus.LOSE_PLAYER].includes(game.status)) {
-                    return gameViewModel.showGameResult();
+                    return Promise.resolve();
                 } else {
-                    return Promise.reject();
+                    return Promise.reject(e);
                 }
             }).then(() => {
                 return mainView.router.load({url: 'result.html', query: {game}, context: {game}});
@@ -31,7 +35,7 @@
                         game.fillPanelActive(true);
                         gameViewModel.updatePage();
                         resolve();
-                    }, 3000);
+                    }, game.memorizeDuration);
                 });
             }
 
@@ -46,13 +50,12 @@
             }
 
             function startTurn() {
-                return gameViewModel.showStartTurnModal().then(() => {
+                gameViewModel.updatePage();
+                return startGameMasterTurn().then(() => {
                     gameViewModel.updatePage();
-                    return startGameMasterTurn();
+                    return gameViewModel.showPlayerTurnModal();
                 }).then(() => {
-                    gameViewModel.updatePage();
-                    return startPlayerTurn();
-                }).then(() => {
+                    return waitSelectPanel();
                 });
             }
 
@@ -68,12 +71,6 @@
                             gameViewModel.showSelectColorFailModal(color).then(reject, reject);
                         }
                     });
-                });
-            }
-
-            function startPlayerTurn() {
-                return gameViewModel.showPlayerTurnModal().then(() => {
-                    return waitSelectPanel();
                 });
             }
 
