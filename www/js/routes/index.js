@@ -3,6 +3,8 @@
         return (page) => {
             bgmController.start('main');
 
+            $$('.back-title-link').removeClass('visible');
+
             $$(page.container).find('.start-link').on('click', () => {
                 const game = makeGame();
                 mainView.router.load({url: 'game.html', query: {game}, context: {game}})

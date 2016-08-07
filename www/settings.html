@@ -18,9 +18,9 @@
           <li>
             <div class="item-content">
               <div class="item-inner">
-                <div class="item-title label">ユーザー</div>
+                <div class="item-title label">ユーザー (>=2)</div>
                 <div class="item-input">
-                  <input type="text" name="users" placeholder="john,taro,beer-man" value="{{settings.users}}">
+                  <input type="text" name="users" placeholder="john,taro,beer-man" value="{{settings.users}}" required>
                 </div>
               </div>
             </div>
@@ -29,9 +29,9 @@
           <li>
             <div class="item-content">
               <div class="item-inner">
-                <div class="item-title label">Panelの行数</div>
+                <div class="item-title label">Panelの行数 (1~5)</div>
                 <div class="item-input">
-                  <input type="number" name="panelRow" step="1" min="1" max="5" value="{{settings.panelRow}}">
+                  <input type="number" name="panelRow" step="1" min="1" max="5" value="{{settings.panelRow}}" required>
                 </div>
               </div>
             </div>
@@ -40,9 +40,9 @@
           <li>
             <div class="item-content">
               <div class="item-inner">
-                <div class="item-title label">Panelの列数</div>
+                <div class="item-title label">Panelの列数 (1~5)</div>
                 <div class="item-input">
-                  <input type="number" name="panelColumn" step="1" min="1" max="5" value="{{settings.panelColumn}}">
+                  <input type="number" name="panelColumn" step="1" min="1" max="5" value="{{settings.panelColumn}}" required>
                 </div>
               </div>
             </div>
@@ -51,9 +51,9 @@
           <li>
             <div class="item-content">
               <div class="item-inner">
-                <div class="item-title label">色の数</div>
+                <div class="item-title label">色の数 (1~5)</div>
                 <div class="item-input">
-                  <input type="number" name="colorNumber" step="1" min="1" max="5" value="{{settings.colorNumber}}">
+                  <input type="number" name="colorNumber" step="1" min="1" max="5" value="{{settings.colorNumber}}" required>
                 </div>
               </div>
             </div>
@@ -62,9 +62,9 @@
           <li>
             <div class="item-content">
               <div class="item-inner">
-                <div class="item-title label">記憶フェーズの時間(ms)</div>
+                <div class="item-title label">記憶フェーズの時間(ms) (500~20000ms)</div>
                 <div class="item-input">
-                  <input type="number" name="memorizeDuration" step="500" min="500" max="20000" value="{{settings.memorizeDuration}}">
+                  <input type="number" name="memorizeDuration" step="500" min="500" max="20000" value="{{settings.memorizeDuration}}" required>
                 </div>
               </div>
             </div>
@@ -74,7 +74,10 @@
     </div>
 
     <div class="content-block">
-      <a href="#" class="button submit-button">Save</a>
+      <p class="buttons-row">
+        <a href="#" class="button back color-pink">Cancel</a>
+        <a href="#" class="button submit-button color-teal">Save</a>
+      </p>
     </div>
   </div>
   

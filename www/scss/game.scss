@@ -3,7 +3,7 @@
 div[data-page=game] {
   
   .page-content {
-    background-image: url('../img/game-background.png');
+    background-image: url(../img/flooring-game-image.png);
     background-size: 100% auto;
   }
   
@@ -44,7 +44,6 @@ div[data-page=game] {
 }
 
 .select-color-popup {
-  border-top: 1px solid #ff9800;
   height: auto;
   background: #ffffff url(../img/GM2.png) no-repeat 102% -70%;
   background-size: 25% auto;
