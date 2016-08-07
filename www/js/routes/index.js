@@ -18,7 +18,7 @@
         const settings = data.settings;
         const game = new models.Game({memorizeDuration: settings.memorizeDuration});
         const colors = data.defaultColors.slice(0, settings.colorNumber).map(x => new models.Color(...x));
-        const users = settings.users.split(',').map(x => new models.User(x));
+        const users = _.shuffle(settings.users.split(',')).map(x => new models.User(x));
         users.forEach(user => game.addUser(user));
         game.setGameMaster(_.sample(users));
         game.createPanels(colors, settings.panelRow, settings.panelColumn);
