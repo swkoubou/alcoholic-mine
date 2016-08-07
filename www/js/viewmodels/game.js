@@ -106,6 +106,7 @@
                     }]
                 });
                 $$('.modal-title').addClass('select-success-modal');
+                $$('.modal').addClass('correct-modal');
             });
         }
 
@@ -118,6 +119,7 @@
 選択:<span class="color-${selectPanel.color.name}">${selectPanel.color.name}</span><br>
 正解:<span class="color-${game.currentColor.name}">${game.currentColor.name}</span>`, '失敗', resolve);
                 $$('.modal-title').addClass('select-fail-modal');
+                $$('.modal').addClass('incorrect-modal');
             });
         }
 
@@ -129,6 +131,7 @@
 ターン ${game.turnIndex + 1}<br>
 <span class="color-${selectColor.name}">${selectColor.name}</span> パネルはもうありません！`, '失敗', resolve);
                 $$('.modal-title').addClass('select-fail-modal');
+                $$('.modal').addClass('incorrect-modal');
             });
         }
 
