@@ -87,8 +87,9 @@
         showSelectPanelSuccessModal(selectPanel) {
             const game = this.game;
             return new Promise(resolve => {
+                // 成功時はターンが先に進んでいるのでindex(1-index)-1 = index(0-index)を表示する
                 this.f7App.alert(`
-プレイヤー: ${game.currentPlayer.name}<br>ターン ${game.turnIndex + 1}<br>
+プレイヤー: ${game.currentPlayer.name}<br>ターン ${game.turnIndex}<br>
 選択:<span class="color-${selectPanel.color.name}">${selectPanel.color.name}</span><br>
 正解:<span class="color-${game.currentColor.name}">${game.currentColor.name}</span>`, '成功', resolve);
                 $$('.modal-title').addClass('select-success-modal');
