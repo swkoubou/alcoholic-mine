@@ -61,7 +61,9 @@
             }
             if (game.currentColor) {
                 this.doms.currentColor.text(game.currentColor.name);
-                this.doms.currentColor.css('color', game.currentColor.rgb);
+                // this.doms.currentColor.css('color', game.currentColor.rgb);
+                this.doms.currentColor.css('color', '#ffffff');
+                this.doms.currentColor.css('background-color', game.currentColor.rgb);
             } else {
                 this.doms.currentColor.text('(none)');
                 this.doms.currentColor.css('color', 'inherits');
