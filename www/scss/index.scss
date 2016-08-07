@@ -2,16 +2,15 @@
 
 div[data-page=index] {
   .page-content {
-    background-image: url('../img/top-image.png');
-    background-size: 100% auto;
+    background: url('../img/top-image.png') no-repeat center;
+    background-size: contain;
   }
 
   .top-buttons {
-    position: absolute;
+    position: fixed;
     bottom: 0;
     left: 0;
     right: 0;
-    margin-bottom: 15px;
   }
 }
 

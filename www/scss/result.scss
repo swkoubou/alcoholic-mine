@@ -2,8 +2,8 @@
 
 div[data-page=result] {
   .page-content {
-    background-image: url('../img/penalty-game.png');
-    background-size: 100% auto;
+    background: url('../img/penalty-game.png') no-repeat center;
+    background-size: contain;
   }
 
   .lost-block {
