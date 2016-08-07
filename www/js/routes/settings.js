@@ -1,6 +1,8 @@
 (function (routes, models, viewmodels, data, $$) {
     routes.Settings = (f7App, mainView, bgmController, seController) => {
         return (page) => {
+            $$('.back-title-link').addClass('visible');
+
             $$(page.container).find('.submit-button').on('click', () => {
                 data.settings = f7App.formToJSON('#settings-form');
                 mainView.router.back();

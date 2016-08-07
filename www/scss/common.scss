@@ -1,5 +1,19 @@
 @charset "UTF-8";
 
-.menu-links {
-  width: 150px;
+.popover.menu-links {
+  width: 180px;
+
+  .popover-inner {
+
+    .list-block {
+
+      .back-title-link {
+        display: none;
+
+        &.visible {
+          display: block;
+        }
+      }
+    }
+  }
 }

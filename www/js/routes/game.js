@@ -4,14 +4,21 @@
             const game = page.query.game;
             const gameViewModel = new viewmodels.Game(f7App, mainView, page, game);
             gameViewModel.initGamePage();
+
+            $$('.back-title-link')
+                .addClass('visible')
+                .on('click', () => { game.status = models.GameStatus.ABORTED; });
+
             game.gameStart();
 
             new Promise(resolve => setTimeout(resolve, 500)).then(() => {
+                if (game.status === models.GameStatus.ABORTED) { return Promise.reject(); }
                 return gameViewModel.showMemorizeStartModal()
             }).then(() => {
                 bgmController.start('memorize');
                 return startMemorizePhase();
             }).then(() => {
+                if (game.status === models.GameStatus.ABORTED) { return Promise.reject(); }
                 bgmController.start('main');
                 seController.start('gameStart');
                 return gameViewModel.showStartGameModal();
@@ -26,7 +33,11 @@
             }).then(() => {
                 return mainView.router.load({url: 'result.html', query: {game}, context: {game}});
             }).catch(e => {
-                console.error(e && (e.stack || e));
+                if (e instanceof Error) {
+                    console.error(e && (e.stack || e));
+                } else {
+                    console.log(e);
+                }
             });
 
             function startMemorizePhase(){

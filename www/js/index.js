@@ -1,4 +1,4 @@
-(function (models, viewmodels, routes) {
+(function (models, viewmodels, routes, $$) {
 
     const app = {
         initialize: () => { document.addEventListener('deviceready', this.onDeviceReady, false); },
@@ -18,6 +18,11 @@
             precompileTemplates: true
         });
         const mainView = f7App.addView('.view-main', {});
+
+        $$('.back-title-link').on('click', () => {
+            mainView.router.load({url: 'index.html'});
+            f7App.closeModal();
+        });
 
         registerTemplateHelper();
 
@@ -55,4 +60,4 @@
     }
 
     app.initialize();
-}(alcoholicmine.models, alcoholicmine.viewmodels, alcoholicmine.routes));
+}(alcoholicmine.models, alcoholicmine.viewmodels, alcoholicmine.routes, Dom7));
