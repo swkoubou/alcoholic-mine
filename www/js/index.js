@@ -1,4 +1,12 @@
 (function (models, viewmodels, routes) {
+    const colors = [
+        ['red', '#f44336'],
+        ['blue', '#2196f3'],
+        ['green', '#4caf50'],
+        ['brown', '#795548'],
+        ['purple', '#9c27b0']
+    ];
+
     const app = {
         initialize: () => { document.addEventListener('deviceready', this.onDeviceReady, false); },
         onDeviceReady: () => {
@@ -42,11 +50,15 @@
             .allPreload()
             .catch(e => console.error(e && (e.stack || e)));
 
+        f7App.onPageInit('index', routes.Index(f7App, mainView, bgmController, seController));
         f7App.onPageInit('game', routes.Game(f7App, mainView, bgmController, seController));
         f7App.onPageInit('result', routes.Result(f7App, mainView, bgmController, seController));
+        f7App.onPageInit('config', routes.Settings(f7App, mainView, bgmController, seController));
 
-        const game = makeStubGame();
-        setTimeout(() => mainView.router.load({url: 'game.html', query: {game}, context: {game}}), 3000);
+        routes.Index(f7App, mainView, bgmController, seController)(mainView);
+
+        // const game = makeStubGame();
+        // setTimeout(() => mainView.router.load({url: 'game.html', query: {game}, context: {game}}), 3000);
     }
 
     function registerTemplateHelper() {
@@ -60,12 +72,12 @@
     //// tests ////
 
     function makeStubGame() {
-        const colors = [['red', '#f44336'], ['blue', '#2196f3'], ['green', '#4caf50']].map(x => new models.Color(...x));
+        const _colors = [['red', '#f44336'], ['blue', '#2196f3'], ['green', '#4caf50']].map(x => new models.Color(...x));
         const users = ['nakazawa', 'kikuchi', 'nishi'].map(x => new models.User(x));
         const game = new models.Game({memorizeDuration: 3000});
         users.forEach(user => game.addUser(user));
         game.setGameMaster(_.sample(users));
-        game.createPanels(colors, 2, 2);
+        game.createPanels(_colors, 2, 2);
         return game;
     }
 

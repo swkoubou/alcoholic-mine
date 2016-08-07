@@ -1,0 +1,66 @@
+ <div class="pages">
+  <div data-page="config" class="page navbar-fixed no-toolbar">
+   <div class="navbar">
+     <div class="navbar-inner">
+       <div class="center">Game Settings</div>
+     </div>
+   </div> <!-- end -->
+   
+  <div class="page-content">
+    <div class="content-block">
+      <form id="settings-form" class="list-block">
+        <ul>
+          <li>
+            <div class="item-content">
+              <div class="item-inner">
+                <div class="item-title label">ユーザー</div>
+                <div class="item-input">
+                  <input type="text" name="users" placeholder="john,taro,beer-man" value="john,taro,beer-man">
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div class="item-content">
+              <div class="item-inner">
+                <div class="item-title label">Panelの行数</div>
+                <div class="item-input">
+                  <input type="number" name="panel-row" value="3" step="1" min="1" max="5">
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div class="item-content">
+              <div class="item-inner">
+                <div class="item-title label">Panelの列数</div>
+                <div class="item-input">
+                  <input type="number" name="panel-column" value="4" step="1" min="1" max="5">
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div class="item-content">
+              <div class="item-inner">
+                <div class="item-title label">色の数</div>
+                <div class="item-input">
+                  <input type="number" name="color-number" value="3" step="1" min="1" max="5">
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </form>
+    </div>
+
+    <div class="content-block">
+      <a href="#" class="button submit-button">Save</a>
+    </div>
+  </div>
+  
+ </div>
+</div>
