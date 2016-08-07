@@ -1,0 +1,82 @@
+ <div class="pages">
+  <div data-page="config" class="page navbar-fixed no-toolbar">
+    <div class="navbar">
+      <div class="navbar-inner">
+        <div class="center">Alcoholic Mine</div>
+        <div class="right">
+          <a href="#" data-popover=".menu-links" class="link open-popover icon-only">
+            <i class="icon icon-bars"></i>
+          </a>
+        </div>
+      </div>
+    </div> <!-- /end navbar -->
+   
+  <div class="page-content">
+    <div class="content-block">
+      <form id="settings-form" class="list-block">
+        <ul>
+          <li>
+            <div class="item-content">
+              <div class="item-inner">
+                <div class="item-title label">ユーザー</div>
+                <div class="item-input">
+                  <input type="text" name="users" placeholder="john,taro,beer-man" value="{{settings.users}}">
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div class="item-content">
+              <div class="item-inner">
+                <div class="item-title label">Panelの行数</div>
+                <div class="item-input">
+                  <input type="number" name="panelRow" step="1" min="1" max="5" value="{{settings.panelRow}}">
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div class="item-content">
+              <div class="item-inner">
+                <div class="item-title label">Panelの列数</div>
+                <div class="item-input">
+                  <input type="number" name="panelColumn" step="1" min="1" max="5" value="{{settings.panelColumn}}">
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div class="item-content">
+              <div class="item-inner">
+                <div class="item-title label">色の数</div>
+                <div class="item-input">
+                  <input type="number" name="colorNumber" step="1" min="1" max="5" value="{{settings.colorNumber}}">
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <li>
+            <div class="item-content">
+              <div class="item-inner">
+                <div class="item-title label">記憶フェーズの時間(ms)</div>
+                <div class="item-input">
+                  <input type="number" name="memorizeDuration" step="500" min="500" max="20000" value="{{settings.memorizeDuration}}">
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </form>
+    </div>
+
+    <div class="content-block">
+      <a href="#" class="button submit-button">Save</a>
+    </div>
+  </div>
+  
+ </div>
+</div>

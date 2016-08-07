@@ -22,28 +22,30 @@
         }
 
         createPanelBlock(panels) {
-            const table = $$('<table class="panel-list"></table>');
+            const block = $$('<table class="panel-list"></table>');
 
             panels.forEach((line, y) => {
-                const tr = $$('<tr>');
+                const row = $$('<tr class="panel-row"></tr>');
                 line.forEach((panel, x) =>{
-                    const td = $$(`<td class="panel-item" data-x="${x}" data-y="${y}"></td>`);
-                    td.css('background-color', panel.isActive ? '#ffffff' : panel.color.rgb);
-                    tr.append(td);
+                    const td = $$('<td class="panel-item-wrap"></td>');
+                    const item = $$(`<span class="button button-raised button-fill panel-item" data-x="${x}" data-y="${y}"></span>`);
+                    item.addClass(`color-${panel.isActive ? 'white' : panel.color.name}`);
+                    td.append(item);
+                    row.append(td);
                 });
-                table.append(tr);
+                block.append(row);
             });
 
-            return table;
+            return block;
         }
 
         addClickEventPanels(callback) {
             $$('.panel-item').on('click', ele => {
                 const item = $$(ele.target);
                 const panel = this.game.panels[item.attr('data-y')][item.attr('data-x')];
-                // if (panel.isActive) {
-                callback(ele, item, panel);
-                // }
+                if (panel.isActive) {
+                    callback(ele, item, panel);
+                }
             });
         }
 
@@ -59,7 +61,12 @@
             }
             if (game.currentColor) {
                 this.doms.currentColor.text(game.currentColor.name);
-                this.doms.currentColor.css('color', game.currentColor.rgb);
+                // this.doms.currentColor.css('color', game.currentColor.rgb);
+                this.doms.currentColor.css('color', '#ffffff');
+                this.doms.currentColor.css('background-color', game.currentColor.rgb);
+            } else {
+                this.doms.currentColor.text('(none)');
+                this.doms.currentColor.css('color', 'inherits');
             }
 
             const panelBlock = this.createPanelBlock(this.game.panels);
@@ -67,25 +74,37 @@
             this.doms.panelListBlock.append(panelBlock);
         }
 
-        showStartTurnModal() {
+        showStartGameModal() {
             return new Promise(resolve => {
-                this.f7App.alert(`プレイヤー: ${this.game.currentPlayer.name}`, `ターン ${this.game.turnIndex + 1}`, resolve);
+                this.f7App.alert(`
+ゲームマスター: ${this.game.gameMaster.name}<Br>
+プレイヤー: ${this.game.players.map(x => x.name)}
+`, `ゲーム開始`, resolve);
             });
         }
 
         showPlayerTurnModal() {
             return new Promise(resolve => {
                 this.f7App.alert('パネルを選択してください', `プレイヤー(${this.game.currentPlayer.name})の番です。`, resolve);
+                $$('.modal').addClass('player-modal');
             });
         }
 
         showSelectPanelSuccessModal(selectPanel) {
             const game = this.game;
             return new Promise(resolve => {
-                this.f7App.alert(`
-プレイヤー: ${game.currentPlayer.name}<br>ターン ${game.turnIndex + 1}<br>
+                // 成功時はターンが先に進んでいるのでindex(1-index)-1 = index(0-index)を表示する
+                this.f7App.modal({
+                    title: '成功',
+                    // 成功時はターンが先に進んでいるのでindex(1-index)-1 = index(0-index)を表示する
+                    text: `プレイヤー: ${game.currentPlayer.name}<br>ターン ${game.turnIndex}<br>
 選択:<span class="color-${selectPanel.color.name}">${selectPanel.color.name}</span><br>
-正解:<span class="color-${game.currentColor.name}">${game.currentColor.name}</span>`, '成功', resolve);
+正解:<span class="color-${game.currentColor.name}">${game.currentColor.name}</span>`,
+                    buttons: [{
+                        text: 'Next Stage',
+                        onClick: resolve
+                    }]
+                });
                 $$('.modal-title').addClass('select-success-modal');
             });
         }
@@ -108,8 +127,22 @@
                 this.f7App.alert(`
 ゲームマスター: ${game.gameMaster.name}<br>
 ターン ${game.turnIndex + 1}<br>
-<span class="color-${selectColor.name}">${selectColor.name} パネルはもうありません！</span>`, '失敗', resolve);
+<span class="color-${selectColor.name}">${selectColor.name}</span> パネルはもうありません！`, '失敗', resolve);
                 $$('.modal-title').addClass('select-fail-modal');
+            });
+        }
+
+        showMemorizeStartModal() {
+            const game = this.game;
+            return new Promise(resolve => {
+                this.f7App.modal({
+                    title: 'パネルの記憶フェーズを開始します。',
+                    text: `制限時間は ${game.memorizeDuration}ms です。` ,
+                    buttons: [{
+                        text: 'Start',
+                        onClick: resolve
+                    }]
+                });
             });
         }
 
@@ -124,11 +157,6 @@
                     resolve(colorName);
                 });
             });
-        }
-
-        showGameResult() {
-            const game = this.game;
-            return new Promise(resolve => this.f7App.alert(`${game.loser.name} が負け！`, '終わり！', resolve));
         }
 
         static get templatePopupTemplate() {

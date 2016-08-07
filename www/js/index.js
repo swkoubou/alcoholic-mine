@@ -1,4 +1,5 @@
 (function (models, viewmodels, routes) {
+
     const app = {
         initialize: () => { document.addEventListener('deviceready', this.onDeviceReady, false); },
         onDeviceReady: () => { appInit(); }
@@ -16,34 +17,41 @@
             template7Pages: true,
             precompileTemplates: true
         });
-        registerTemplateHelper();
         const mainView = f7App.addView('.view-main', {});
 
-        f7App.onPageInit('game', routes.Game(f7App, mainView));
-        f7App.onPageInit('result', routes.Result(f7App, mainView));
+        registerTemplateHelper();
 
-        const game = makeStubGame();
-        setTimeout(() => mainView.router.load({url: 'game.html', query: {game}, context: {game}}), 1000);
+        const bgmController = new models.SoundController();
+        bgmController
+            .add('main', 'sound/bgm/main.wav', {loop: true})
+            .add('result', 'sound/bgm/result.mp3', {loop: true})
+            .add('memorize', 'sound/bgm/thinking.wav', {loop: true});
+
+        const seController = new models.SoundController();
+        seController
+            .add('selectColor', 'sound/se/color.wav', {loop: false})
+            .add('correct', 'sound/se/correct.wav', {loop: false})
+            .add('incorrect', 'sound/se/incorrect.wav', {loop: false})
+            .add('gameStart', 'sound/se/gamestart.mp3', {loop: false})
+            .add('turnStart', 'sound/se/turnstart.wav', {loop: false});
+
+        f7App.onPageInit('index', routes.Index(f7App, mainView, bgmController, seController));
+        f7App.onPageInit('game', routes.Game(f7App, mainView, bgmController, seController));
+        f7App.onPageInit('result', routes.Result(f7App, mainView, bgmController, seController));
+        f7App.onPageInit('config', routes.Settings(f7App, mainView, bgmController, seController));
+
+        Promise.all([
+            bgmController.allPreload(),
+            seController.allPreload()
+        ]).then(() => {
+            routes.Index(f7App, mainView, bgmController, seController)(mainView);
+        }).catch(e => console.error(e && (e.stack || e)));
     }
 
     function registerTemplateHelper() {
         Template7.registerHelper('ifeq', function (a, b, opts) {
             a === b ? opts.fn(this, opts.data) : opts.inverse(this, opts.data);
         })
-    }
-
-    app.initialize();
-
-    //// tests ////
-
-    function makeStubGame() {
-        const colors = [['red', '#f44336'], ['blue', '#2196f3'], ['green', '#4caf50']].map(x => new models.Color(...x));
-        const users = ['nakazawa', 'kikuchi', 'nishi'].map(x => new models.User(x));
-        const game = new models.Game();
-        users.forEach(user => game.addUser(user));
-        game.setGameMaster(_.sample(users));
-        game.createPanels(colors, 5, 5);
-        return game;
     }
 
     app.initialize();

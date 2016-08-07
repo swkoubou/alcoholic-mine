@@ -7,14 +7,14 @@
   <meta name="format-detection" content="telephone=no">
   <meta name="msapplication-tap-highlight" content="no">
   <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="theme-color" content="#ff9800">
+  <meta name="theme-color" content="#3f51b5">
   <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width">
   <link rel="stylesheet" href="node_modules/framework7/dist/css/framework7.material.min.css">
   <link rel="stylesheet" href="node_modules/framework7/dist/css/framework7.material.colors.min.css">
   <link rel="stylesheet" type="text/css" href="css/all.css">
   <title>Alcoholic Mine</title>
 </head>
-<body class="theme-orange">
+<body class="theme-indigo">
 <div class="statusbar-overlay"></div>
 
 <div class="views">
@@ -24,13 +24,18 @@
         <div class="navbar">
           <div class="navbar-inner">
             <div class="center">Alcoholic Mine</div>
+            <div class="right">
+              <a href="#" data-popover=".menu-links" class="link open-popover icon-only">
+                <i class="icon icon-bars"></i>
+              </a>
+            </div>
           </div>
         </div> <!-- /end navbar -->
 
         <div class="page-content">
-          <div class="content-block">
-            <div class="panel-block"></div>
-            <p><a href="#" class="button button-raised button-big">Game Start</a></p>
+          <div class="content-block top-buttons theme-white">
+            <p><a href="#" class="button start-link">ゲームスタート</a></p>
+            <p><a href="#" class="button settings-link">設定</a></p>
           </div>
         </div>
       </div>
@@ -38,7 +43,46 @@
   </div>
 </div>
 
-<!--<script type="text/javascript" src="cordova.js"></script>-->
+<div class="popover menu-links">
+  <div class="popover-angle"></div>
+  <div class="popover-inner">
+    <div class="list-block">
+      <ul>
+        <li><a href="#" data-popup=".popup-description" class="list-button open-popup item-link close-popover">ゲーム説明</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="popover popover-links">
+  <div class="popover-angle"></div>
+  <div class="popover-inner">
+    <div class="list-block">
+      <ul>
+        <li><a href="#" class="list-button item-link">Link 1</a></li>
+        <li><a href="#" class="list-button item-link">Link 2</a></li>
+        <li><a href="#" class="list-button item-link">Link 3</a></li>
+        <li><a href="#" class="list-button item-link">Link 4</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="popup popup-description">
+  <div class="content-block">
+    <h2>ゲーム説明</h2>
+    <ul>
+        <li>最初の数秒間パネルが表示されるので、色と配置を覚えて下さい。</li>
+        <li>数秒後パネルが全て白になります。</li>
+        <li>プレイヤーはターンごとにゲームマスターが指定する色のパネルを開いて下さい。</li>
+        <li>プレイヤーが間違ったパネルを開くと、プレイヤーの負けです。</li>
+      <li>プレイヤーが全てのパネルを開くか、ゲームマスターがすでに全て開かれているパネルの色を指定すると、ゲームマスターの負けです。</li>
+    </ul>
+    <p><a href="#" class="close-popup">Close</a></p>
+  </div>
+</div>
+
+<script type="text/javascript" src="cordova.js"></script>
 <script type="text/javascript" src="node_modules/lodash/lodash.min.js"></script>
 <script type="text/javascript" src="node_modules/framework7/dist/js/framework7.min.js"></script>
 <script type="text/javascript" src="js/config.js"></script>
@@ -48,10 +92,14 @@
 <script type="text/javascript" src="js/models/panel.js"></script>
 <script type="text/javascript" src="js/models/game_status.js"></script>
 <script type="text/javascript" src="js/models/game.js"></script>
+<script type="text/javascript" src="js/models/sound.js"></script>
+<script type="text/javascript" src="js/models/sound_controller.js"></script>
 <script type="text/javascript" src="js/viewmodels/game.js"></script>
 
+<script type="text/javascript" src="js/routes/index.js"></script>
 <script type="text/javascript" src="js/routes/game.js"></script>
 <script type="text/javascript" src="js/routes/result.js"></script>
+<script type="text/javascript" src="js/routes/settings.js"></script>
 <script type="text/javascript" src="js/index.js"></script>
 
 </body>
