@@ -9,6 +9,7 @@
   <div class="page-content">
     <div class="content-block">
       <p class="lost-block">
+        {{#if game}}
         <span class="loser-type">
           {{#if game.loseGameMaster}}
           ゲームマスター
@@ -17,7 +18,11 @@
           {{/if}}
         </span>
         (<span class="loser">{{game.loser.name}}</span>) の負け
+        {{/if}}
       </p>
+    </div>
+    <div class="content-block">
+      <p><a href="index.html" class="item-link">Back to title</a></p>
     </div>
   </div>
   
