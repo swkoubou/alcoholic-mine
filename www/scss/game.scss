@@ -1,6 +1,12 @@
 @charset "UTF-8";
 
 div[data-page=game] {
+  
+  .page-content {
+    background-image: url('../img/game-background.png');
+    background-size: 100% auto;
+  }
+  
   .content-block > p {
     margin: 3px 0;
   }
