@@ -84,6 +84,7 @@
         showPlayerTurnModal() {
             return new Promise(resolve => {
                 this.f7App.alert('パネルを選択してください', `プレイヤー(${this.game.currentPlayer.name})の番です。`, resolve);
+                $$('.modal').addClass('player-modal');
             });
         }
 

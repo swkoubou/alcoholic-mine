@@ -24,17 +24,62 @@
         <div class="navbar">
           <div class="navbar-inner">
             <div class="center">Alcoholic Mine</div>
+            <div class="right">
+              <a href="#" data-popover=".menu-links" class="link open-popover icon-only">
+                <i class="icon icon-bars"></i>
+              </a>
+            </div>
           </div>
         </div> <!-- /end navbar -->
 
         <div class="page-content">
           <div class="content-block">
-            <p><a href="#" class="button button-big start-link">Game Start</a></p>
-            <p><a href="#" class="button button-big settings-link">Settings</a></p>
+            <p><a href="#" class="button button-big start-link">ゲームスタート</a></p>
+            <p><a href="#" class="button button-big settings-link">設定</a></p>
+            <p><a href="#" data-popup=".popup-description" class="button button-big open-popup">ゲーム説明</a></p>
           </div>
         </div>
       </div>
     </div>
+  </div>
+</div>
+
+<div class="popover menu-links">
+  <div class="popover-angle"></div>
+  <div class="popover-inner">
+    <div class="list-block">
+      <ul>
+        <li><a href="#" data-popup=".popup-description" class="list-button open-popup item-link close-popover">ゲーム説明</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="popover popover-links">
+  <div class="popover-angle"></div>
+  <div class="popover-inner">
+    <div class="list-block">
+      <ul>
+        <li><a href="#" class="list-button item-link">Link 1</a></li>
+        <li><a href="#" class="list-button item-link">Link 2</a></li>
+        <li><a href="#" class="list-button item-link">Link 3</a></li>
+        <li><a href="#" class="list-button item-link">Link 4</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<div class="popup popup-description">
+  <div class="content-block">
+    <h2>ゲーム説明</h2>
+    <ul>
+        <li>最初の数秒間パネルが表示されるので、色と配置を覚えて下さい。</li>
+        <li>数秒後パネルが全て白になります。</li>
+        <li>プレイヤーはターンごとにゲームマスターが指定する色のパネルを開いて下さい。</li>
+        <li>プレイヤーが間違ったパネルを開くと、プレイヤーの負けです。</li>
+      <li>プレイヤーが全てのパネルを開くか、ゲームマスターがすでに全て開かれているパネルの色を指定すると、ゲームマスターの負けです。</li>
+    </ul>
+    <p><a href="#" class="close-popup">Close</a></p>
   </div>
 </div>
 
