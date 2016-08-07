@@ -1,17 +1,8 @@
 (function (models, viewmodels, routes) {
-    const colors = [
-        ['red', '#f44336'],
-        ['blue', '#2196f3'],
-        ['green', '#4caf50'],
-        ['brown', '#795548'],
-        ['purple', '#9c27b0']
-    ];
 
     const app = {
         initialize: () => { document.addEventListener('deviceready', this.onDeviceReady, false); },
-        onDeviceReady: () => {
-            appInit();
-        }
+        onDeviceReady: () => { appInit(); }
     };
 
     if (typeof cordova === "undefined") {
@@ -26,59 +17,41 @@
             template7Pages: true,
             precompileTemplates: true
         });
-        registerTemplateHelper();
         const mainView = f7App.addView('.view-main', {});
+
+        registerTemplateHelper();
 
         const bgmController = new models.SoundController();
         bgmController
-            .addBgm('main', 'sound/bgm/main.wav', {loop: true})
-            .addBgm('result', 'sound/bgm/result.mp3', {loop: true})
-            .addBgm('memorize', 'sound/bgm/thinking.wav', {loop: true})
-            .allPreload()
-            .then(() => {
-                bgmController.start('main');
-            })
-            .catch(e => console.error(e && (e.stack || e)));
+            .add('main', 'sound/bgm/main.wav', {loop: true})
+            .add('result', 'sound/bgm/result.mp3', {loop: true})
+            .add('memorize', 'sound/bgm/thinking.wav', {loop: true});
 
         const seController = new models.SoundController();
         seController
-            .addBgm('selectColor', 'sound/se/color.wav', {loop: false})
-            .addBgm('correct', 'sound/se/correct.wav', {loop: false})
-            .addBgm('incorrect', 'sound/se/incorrect.wav', {loop: false})
-            .addBgm('gameStart', 'sound/se/gamestart.mp3', {loop: false})
-            .addBgm('turnStart', 'sound/se/turnstart.wav', {loop: false})
-            .allPreload()
-            .catch(e => console.error(e && (e.stack || e)));
+            .add('selectColor', 'sound/se/color.wav', {loop: false})
+            .add('correct', 'sound/se/correct.wav', {loop: false})
+            .add('incorrect', 'sound/se/incorrect.wav', {loop: false})
+            .add('gameStart', 'sound/se/gamestart.mp3', {loop: false})
+            .add('turnStart', 'sound/se/turnstart.wav', {loop: false});
 
         f7App.onPageInit('index', routes.Index(f7App, mainView, bgmController, seController));
         f7App.onPageInit('game', routes.Game(f7App, mainView, bgmController, seController));
         f7App.onPageInit('result', routes.Result(f7App, mainView, bgmController, seController));
         f7App.onPageInit('config', routes.Settings(f7App, mainView, bgmController, seController));
 
-        routes.Index(f7App, mainView, bgmController, seController)(mainView);
-
-        // const game = makeStubGame();
-        // setTimeout(() => mainView.router.load({url: 'game.html', query: {game}, context: {game}}), 3000);
+        Promise.all([
+            bgmController.allPreload(),
+            seController.allPreload()
+        ]).then(() => {
+            routes.Index(f7App, mainView, bgmController, seController)(mainView);
+        }).catch(e => console.error(e && (e.stack || e)));
     }
 
     function registerTemplateHelper() {
         Template7.registerHelper('ifeq', function (a, b, opts) {
             a === b ? opts.fn(this, opts.data) : opts.inverse(this, opts.data);
         })
-    }
-
-    app.initialize();
-
-    //// tests ////
-
-    function makeStubGame() {
-        const _colors = [['red', '#f44336'], ['blue', '#2196f3'], ['green', '#4caf50']].map(x => new models.Color(...x));
-        const users = ['nakazawa', 'kikuchi', 'nishi'].map(x => new models.User(x));
-        const game = new models.Game({memorizeDuration: 3000});
-        users.forEach(user => game.addUser(user));
-        game.setGameMaster(_.sample(users));
-        game.createPanels(_colors, 2, 2);
-        return game;
     }
 
     app.initialize();

@@ -6,13 +6,11 @@
             this.url = url;
             this.source = null;
             this.buffer = null;
-            this.context = null;
+            this.context = _context;
             this.loop = loop;
         }
 
         fetchAudioBuffer() {
-            this.context = _context;
-
             return new Promise((resolve, reject) => {
                 const req = new XMLHttpRequest();
                 req.responseType = 'arraybuffer';

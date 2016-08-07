@@ -3,35 +3,35 @@
 
     class SoundController {
         constructor() {
-            this.bgms = {};
-            this.currentBgmName = null;
+            this.sounds = {};
+            this.currentSoundName = null;
         }
 
-        addBgm(name, url, params) {
-            this.bgms[name]= new Sound(url, params);
+        add(name, url, params) {
+            this.sounds[name]= new Sound(url, params);
             return this;
         }
 
         allPreload() {
-            return Promise.all(_.map(this.bgms, sound => sound.fetchAudioBuffer()));
+            return Promise.all(_.map(this.sounds, sound => sound.fetchAudioBuffer()));
         }
 
         start(name) {
-            if (this.currentBgm) {
-                this.currentBgm.stop();
+            if (this.currentSound) {
+                this.currentSound.stop();
             }
-            this.currentBgmName = name;
-            this.currentBgm.start();
+            this.currentSoundName = name;
+            this.currentSound.start();
         }
 
         stop() {
-            if (this.currentBgm) {
-                this.currentBgm.stop();
+            if (this.currentSound) {
+                this.currentSound.stop();
             }
         }
 
-        get currentBgm() {
-            return this.bgms[this.currentBgmName];
+        get currentSound() {
+            return this.sounds[this.currentSoundName];
         }
     }
 
