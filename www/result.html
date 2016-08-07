@@ -1,14 +1,10 @@
  <div class="pages">
-  <div data-page="result" class="page navbar-fixed no-toolbar">
-   <div class="navbar">
-     <div class="navbar-inner">
-       <div class="center">Result</div>
-     </div>
-   </div> <!-- end -->
+  <div data-page="result" class="page no-bavbar no-toolbar">
    
   <div class="page-content">
     <div class="content-block">
-      <p class="lost-block">
+      <h2 class="lost-block color-white">
+        {{#if game}}
         <span class="loser-type">
           {{#if game.loseGameMaster}}
           ゲームマスター
@@ -17,7 +13,11 @@
           {{/if}}
         </span>
         (<span class="loser">{{game.loser.name}}</span>) の負け
-      </p>
+        {{/if}}
+      </h2>
+    </div>
+    <div class="content-block back-block">
+      <p><a href="index.html" class="item-link color-cyan">Back to title</a></p>
     </div>
   </div>
   

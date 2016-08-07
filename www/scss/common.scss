@@ -1,1 +1,19 @@
 @charset "UTF-8";
+
+.popover.menu-links {
+  width: 180px;
+
+  .popover-inner {
+
+    .list-block {
+
+      .back-title-link {
+        display: none;
+
+        &.visible {
+          display: block;
+        }
+      }
+    }
+  }
+}

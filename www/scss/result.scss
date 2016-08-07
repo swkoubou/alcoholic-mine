@@ -1,4 +1,20 @@
 @charset "UTF-8";
 
 div[data-page=result] {
+  .page-content {
+    background: url('../img/penalty-game.png') no-repeat center;
+    background-size: contain;
+  }
+
+  .lost-block {
+    text-align: center;
+  }
+
+  .back-block {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin-bottom: 16px;
+  }
 }

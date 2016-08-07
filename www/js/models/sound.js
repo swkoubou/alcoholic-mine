@@ -1,16 +1,16 @@
 (function (AudioContext) {
+    const _context = new AudioContext();
+
     class Sound {
         constructor(url, {loop=false}={}) {
             this.url = url;
             this.source = null;
             this.buffer = null;
-            this.context = null;
+            this.context = _context;
             this.loop = loop;
         }
 
         fetchAudioBuffer() {
-            this.context = new AudioContext();
-
             return new Promise((resolve, reject) => {
                 const req = new XMLHttpRequest();
                 req.responseType = 'arraybuffer';
