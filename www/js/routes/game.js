@@ -6,7 +6,9 @@
             gameViewModel.initGamePage();
             game.gameStart();
 
-            gameViewModel.showMemorizeStartModal().then(() => {
+            new Promise(resolve => setTimeout(resolve, 500)).then(() => {
+                return gameViewModel.showMemorizeStartModal()
+            }).then(() => {
                 bgmController.start('memorize');
                 return startMemorizePhase();
             }).then(() => {
