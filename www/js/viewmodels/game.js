@@ -43,9 +43,9 @@
             $$('.panel-item').on('click', ele => {
                 const item = $$(ele.target);
                 const panel = this.game.panels[item.attr('data-y')][item.attr('data-x')];
-                // if (panel.isActive) {
-                callback(ele, item, panel);
-                // }
+                if (panel.isActive) {
+                    callback(ele, item, panel);
+                }
             });
         }
 
