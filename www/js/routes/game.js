@@ -31,7 +31,7 @@
                     return Promise.reject(e);
                 }
             }).then(() => {
-                return mainView.router.load({url: 'result.html', query: {game}, context: {game}});
+                return mainView.router.load({url: 'result.html', query: {game, gameViewModel}, context: {game}});
             }).catch(e => {
                 if (e instanceof Error) {
                     console.error(e && (e.stack || e));

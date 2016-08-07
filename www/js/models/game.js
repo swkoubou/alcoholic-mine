@@ -21,6 +21,8 @@
             this.memorizeDuration = memorizeDuration;
 
             this.loser = null; // 敗者
+
+            this.lastSelectPanel = null;
         }
 
         addUser(user) {
@@ -57,6 +59,8 @@
                 throw new Error(`status is not "TURN_GAME_MASTER", current status is ${this.status}`);
             }
 
+            this.lastSelectPanel = null;
+
             // 色が残ってるか
             if (this._checkRemainedColor(color)) {
                 this.currentColor = color;
@@ -80,6 +84,7 @@
             }
 
             panel.isActive = false;
+            this.lastSelectPanel = panel;
 
             // 正解パネルか
             if (panel.color === this.currentColor) {

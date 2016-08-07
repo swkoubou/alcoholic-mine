@@ -39,6 +39,31 @@
             return block;
         }
 
+        createLastResultPanelBlock(panels) {
+            const block = $$('<table class="panel-list"></table>');
+
+            panels.forEach(line => {
+                const row = $$('<tr class="panel-row"></tr>');
+                line.forEach(panel =>{
+                    const td = $$('<td class="panel-item-wrap"></td>');
+                    const item = $$(`<span class="button button-raised button-fill panel-item"></span>`);
+                    item.addClass(`color-${panel.color.name}`);
+                    if (panel.isActive) {
+                        item.addClass('result-non-active');
+                    }
+                    if (panel === this.game.lastSelectPanel) {
+                        item.addClass('last-panel-item');
+                    }
+                    td.append(item);
+                    row.append(td);
+                });
+                block.append(row);
+            });
+
+            return block;
+        }
+
+
         addClickEventPanels(callback) {
             $$('.panel-item').on('click', ele => {
                 const item = $$(ele.target);
@@ -151,7 +176,7 @@
 
         showSelectColorPopup() {
             return new Promise((resolve) => {
-                const popup = Game.templatePopupTemplate(this.game);
+                const popup = Game.selectColorPopupTemplate(this.game);
                 this.f7App.pickerModal(popup);
 
                 $$('.select-color-popup').find('.select-color-item').on('click', ele => {
@@ -162,7 +187,15 @@
             });
         }
 
-        static get templatePopupTemplate() {
+        showLastResultPopup() {
+            return new Promise((resolve) => {
+                const panelBlock = this.createLastResultPanelBlock(this.game.panels)[0].outerHTML;
+                const popup = Game.lastResultPopupTemplate({panelBlock});
+                this.f7App.pickerModal(popup);
+            });
+        }
+
+        static get selectColorPopupTemplate() {
             return Template7.compile(`
 <div class="picker-modal select-color-popup">
   <div class="content-block">
@@ -173,6 +206,19 @@
       <span class="select-color-item button button-raised button-fill color-{{this.name}}" data-color-name="{{this.name}}">{{this.name}}</span>
       {{/each}}
     </p>
+  </div>
+</div>
+`);
+        }
+
+        static get lastResultPopupTemplate() {
+            return Template7.compile(`
+<div class="picker-modal last-result-popup">
+  <div class="content-block panel-list-block">
+    {{panelBlock}}
+  </div>
+  <div class="content-block">
+    <p><a href="#" class="close-picker">Close</a></p>
   </div>
 </div>
 `);

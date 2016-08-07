@@ -17,3 +17,37 @@
     }
   }
 }
+
+.panel-list-block {
+  margin-top: 54px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .panel-list {
+    display: block;
+
+    .panel-row {
+      margin: 0;
+
+      .panel-item-wrap {
+        text-align: center;
+
+        .panel-item {
+          display: inline-block;
+          margin: 4px;
+          width: 50px;
+          height: 50px;
+
+          &.last-panel-item {
+            border: 2px darkred dashed;
+          }
+
+          &.result-non-active{
+            opacity: 0.5;
+          }
+        }
+      }
+    }
+  }
+}

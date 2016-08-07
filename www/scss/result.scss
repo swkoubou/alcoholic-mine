@@ -16,5 +16,17 @@ div[data-page=result] {
     right: 0;
     bottom: 0;
     margin-bottom: 16px;
+
+    .back-title-link {
+      float: left;
+    }
+
+    .last-result-link {
+      float: right;
+    }
   }
+}
+
+.last-result-popup {
+  height: auto;
 }
