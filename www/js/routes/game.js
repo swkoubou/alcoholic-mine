@@ -36,6 +36,9 @@
             }
 
             function turnLoop() {
+                if (game.status !== models.GameStatus.TURN_GAME_MASTER) {
+                    return Promise.reject(new Error(`game status was not TURN_GAME_MASTER when starting turn: ${game.status}`));
+                }
                 return startTurn().then(() => {
                     seController.start('turnStart');
                     return turnLoop();

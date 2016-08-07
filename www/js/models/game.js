@@ -81,8 +81,13 @@
 
             // 正解パネルか
             if (panel.color === this.currentColor) {
-                this.status = GameStatus.TURN_GAME_MASTER;
                 this.turnIndex += 1;
+                if (this.turnIndex < this.maxTurn) {
+                    this.status = GameStatus.TURN_GAME_MASTER;
+                    this.loser = this.gameMaster;
+                } else {
+                    this.status = GameStatus.LOSE_GAME_MASTER;
+                }
                 return true;
             } else {
                 this.status = GameStatus.LOSE_PLAYER;
