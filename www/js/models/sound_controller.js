@@ -17,6 +17,7 @@
         }
 
         start(name) {
+            if (name === this.currentSoundName) { return; }
             if (this.currentSound) {
                 this.currentSound.stop();
             }

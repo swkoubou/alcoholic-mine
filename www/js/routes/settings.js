@@ -9,7 +9,7 @@
                 if (validateSettings(settings)) {
                     data.settings = settings;
                     localStorage.setItem('userSettings', JSON.stringify(settings));
-                    mainView.router.back();
+                    mainView.router.load({url: 'index.html'});
                 } else {
                     f7App.alert('適切な値を入力してください。', '値が間違っています。');
                 }
