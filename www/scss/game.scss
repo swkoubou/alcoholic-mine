@@ -3,8 +3,8 @@
 div[data-page=game] {
   
   .page-content {
-    background-image: url(../img/flooring-game-image.png);
-    background-size: 100% auto;
+    background: url(../img/flooring-game-image.png) no-repeat center;
+    background-size: cover;
   }
   
   .content-block > p {

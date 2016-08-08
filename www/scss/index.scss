@@ -2,8 +2,8 @@
 
 div[data-page=index] {
   .page-content {
-    background: url('../img/top-image.png') no-repeat center;
-    background-size: contain;
+    background: url(../img/top-image.png) no-repeat center;
+    background-size: cover;
   }
 
   .top-buttons {
