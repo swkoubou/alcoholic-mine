@@ -1,7 +1,7 @@
 (function (models, viewmodels, routes, $$) {
 
     const app = {
-        initialize: () => { document.addEventListener('deviceready', this.onDeviceReady, false); },
+        initialize: function () {  document.addEventListener('deviceready', this.onDeviceReady, false); },
         onDeviceReady: () => { appInit(); }
     };
 
