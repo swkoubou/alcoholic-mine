@@ -1,7 +1,6 @@
 # AlcoholicMine
 
 [デモ](http://worddrop.johnscript.info/)(音量注意)  
-[ソース](https://github.com/swkoubou/worddrop)
 
 ![ゲーム画像](https://blog.johnscript.info/wp-content/uploads/2017/01/alcoholicmine.jpg)
 
